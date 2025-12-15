@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión - HSK1 学习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            text-align: center;
+            max-width: 400px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .offline-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #e53935;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .chinese-title {
+            font-size: 1.5rem;
+            color: #c62828;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tips {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .tips h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .retry-btn {
+            display: inline-block;
+            background: #e53935;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .retry-btn:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(229, 57, 53, 0.3);
+        }
+
+        .study-tip {
+            margin-top: 30px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 12px;
+        }
+
+        .study-tip .character {
+            font-size: 3rem;
+            color: #2e7d32;
+        }
+
+        .study-tip .pinyin {
+            color: #388e3c;
+            font-size: 1.1rem;
+        }
+
+        .study-tip .meaning {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            }
+
+            .offline-container {
+                background: #1e1e1e;
+            }
+
+            h1 {
+                color: #ff6659;
+            }
+
+            .chinese-title {
+                color: #ff8a80;
+            }
+
+            p {
+                color: #aaa;
+            }
+
+            .tips {
+                background: #2d2d2d;
+            }
+
+            .tips h3 {
+                color: #ffb74d;
+            }
+
+            .tips li {
+                color: #bbb;
+            }
+
+            .study-tip {
+                background: #1b3a1b;
+            }
+
+            .study-tip .character {
+                color: #81c784;
+            }
+
+            .study-tip .pinyin {
+                color: #a5d6a7;
+            }
+
+            .study-tip .meaning {
+                color: #888;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        <h1>Sin Conexión</h1>
+        <div class="chinese-title">没有网络连接</div>
+        <p>Parece que no tienes conexión a internet. No te preocupes, la mayor parte de la app funciona sin conexión.</p>
+
+        <div class="tips">
+            <h3>💡 Mientras tanto puedes:</h3>
+            <ul>
+                <li>Repasar las flashcards descargadas</li>
+                <li>Practicar escritura de caracteres</li>
+                <li>Hacer ejercicios del examen</li>
+                <li>Ver tu progreso y estadísticas</li>
+            </ul>
+        </div>
+
+        <button class="retry-btn" onclick="window.location.reload()">
+            Reintentar Conexión
+        </button>
+
+        <div class="study-tip">
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Mientras esperas, aprende esta palabra:</p>
+            <div class="character" id="tipCharacter">学</div>
+            <div class="pinyin" id="tipPinyin">xué</div>
+            <div class="meaning" id="tipMeaning">estudiar, aprender</div>
+        </div>
+    </div>
+
+    <script>
+        // Palabras aleatorias para mostrar mientras está offline
+        const words = [
+            { char: '学', pinyin: 'xué', meaning: 'estudiar, aprender' },
+            { char: '中', pinyin: 'zhōng', meaning: 'centro, medio, China' },
+            { char: '好', pinyin: 'hǎo', meaning: 'bueno, bien' },
+            { char: '人', pinyin: 'rén', meaning: 'persona' },
+            { char: '大', pinyin: 'dà', meaning: 'grande' },
+            { char: '小', pinyin: 'xiǎo', meaning: 'pequeño' },
+            { char: '天', pinyin: 'tiān', meaning: 'día, cielo' },
+            { char: '水', pinyin: 'shuǐ', meaning: 'agua' },
+            { char: '火', pinyin: 'huǒ', meaning: 'fuego' },
+            { char: '月', pinyin: 'yuè', meaning: 'luna, mes' }
+        ];
+
+        // Mostrar palabra aleatoria
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        document.getElementById('tipCharacter').textContent = randomWord.char;
+        document.getElementById('tipPinyin').textContent = randomWord.pinyin;
+        document.getElementById('tipMeaning').textContent = randomWord.meaning;
+
+        // Detectar cuando vuelve la conexión
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

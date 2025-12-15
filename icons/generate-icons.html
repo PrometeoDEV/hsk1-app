@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Iconos HSK1</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        h1 { color: #e53935; }
+        .icon-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+        .icon-item { text-align: center; background: white; padding: 15px; border-radius: 8px; }
+        .icon-item canvas { display: block; margin: 10px auto; }
+        button { padding: 10px 20px; background: #e53935; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #c62828; }
+        .instructions { background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Generador de Iconos PWA - HSK1 学习</h1>
+
+    <div class="instructions">
+        <h3>Instrucciones:</h3>
+        <ol>
+            <li>Abre este archivo en un navegador</li>
+            <li>Haz clic en "Generar Todos los Iconos"</li>
+            <li>Descarga cada icono haciendo clic en su botón</li>
+            <li>Guarda los archivos en la carpeta /icons/</li>
+        </ol>
+    </div>
+
+    <button onclick="generateAllIcons()">Generar Todos los Iconos</button>
+    <button onclick="downloadAll()">Descargar Todos</button>
+
+    <div class="icon-grid" id="iconGrid"></div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const iconGrid = document.getElementById('iconGrid');
+
+        function createIcon(size, maskable = false) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            const padding = maskable ? size * 0.1 : 0;
+            const radius = size * 0.2;
+
+            ctx.fillStyle = '#e53935';
+            ctx.beginPath();
+            if (maskable) {
+                // Full square for maskable
+                ctx.fillRect(0, 0, size, size);
+            } else {
+                // Rounded corners for regular
+                ctx.roundRect(padding, padding, size - padding * 2, size - padding * 2, radius);
+                ctx.fill();
+            }
+
+            // Character "中"
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.5}px "Noto Sans SC", Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('中', size / 2, size / 2 + size * 0.02);
+
+            return canvas;
+        }
+
+        function generateAllIcons() {
+            iconGrid.innerHTML = '';
+
+            sizes.forEach(size => {
+                // Regular icon
+                const canvas = createIcon(size, false);
+                const item = document.createElement('div');
+                item.className = 'icon-item';
+                item.innerHTML = `<strong>icon-${size}.png</strong>`;
+                item.appendChild(canvas);
+
+                const btn = document.createElement('button');
+                btn.textContent = 'Descargar';
+                btn.onclick = () => downloadIcon(canvas, `icon-${size}.png`);
+                item.appendChild(btn);
+
+                iconGrid.appendChild(item);
+            });
+
+            // Maskable icons
+            [192, 512].forEach(size => {
+                const canvas = createIcon(size, true);
+                const item = document.createElement('div');
+                item.className = 'icon-item';
+                item.innerHTML = `<strong>icon-maskable-${size}.png</strong>`;
+                item.appendChild(canvas);
+
+                const btn = document.createElement('button');
+                btn.textContent = 'Descargar';
+                btn.onclick = () => downloadIcon(canvas, `icon-maskable-${size}.png`);
+                item.appendChild(btn);
+
+                iconGrid.appendChild(item);
+            });
+
+            // Shortcut icons
+            const shortcuts = [
+                { name: 'flashcards', icon: '📚' },
+                { name: 'exam', icon: '✅' },
+                { name: 'listening', icon: '🎧' }
+            ];
+
+            shortcuts.forEach(shortcut => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 96;
+                canvas.height = 96;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#e53935';
+                ctx.beginPath();
+                ctx.roundRect(0, 0, 96, 96, 19);
+                ctx.fill();
+
+                ctx.font = '48px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(shortcut.icon, 48, 48);
+
+                const item = document.createElement('div');
+                item.className = 'icon-item';
+                item.innerHTML = `<strong>shortcut-${shortcut.name}.png</strong>`;
+                item.appendChild(canvas);
+
+                const btn = document.createElement('button');
+                btn.textContent = 'Descargar';
+                btn.onclick = () => downloadIcon(canvas, `shortcut-${shortcut.name}.png`);
+                item.appendChild(btn);
+
+                iconGrid.appendChild(item);
+            });
+        }
+
+        function downloadIcon(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadAll() {
+            document.querySelectorAll('.icon-item button').forEach((btn, i) => {
+                setTimeout(() => btn.click(), i * 200);
+            });
+        }
+
+        // Generate on load
+        generateAllIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{
+    "name": "HSK1 学习 - Preparación Examen Chino",
+    "short_name": "HSK1 Prep",
+    "description": "Aplicación completa para preparar y aprobar el examen HSK Nivel 1 de chino mandarín. Incluye flashcards, ejercicios, comprensión auditiva, lectura y más.",
+    "start_url": "/index.html",
+    "id": "/",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay", "standalone", "browser"],
+    "background_color": "#fafafa",
+    "theme_color": "#e53935",
+    "orientation": "portrait-primary",
+    "dir": "ltr",
+    "lang": "es",
+    "scope": "/",
+    "categories": ["education", "language", "productivity"],
+    "iarc_rating_id": "",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "screenshots/home.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Pantalla principal con progreso"
+        },
+        {
+            "src": "screenshots/flashcards.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Flashcards de vocabulario"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Flashcards",
+            "short_name": "Flashcards",
+            "description": "Estudiar vocabulario con flashcards",
+            "url": "/index.html?section=flashcards",
+            "icons": [{"src": "icons/shortcut-flashcards.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "Examen",
+            "short_name": "Examen",
+            "description": "Practicar examen HSK1",
+            "url": "/index.html?section=exam",
+            "icons": [{"src": "icons/shortcut-exam.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "Listening",
+            "short_name": "Escucha",
+            "description": "Ejercicios de comprensión auditiva",
+            "url": "/index.html?section=listening",
+            "icons": [{"src": "icons/shortcut-listening.png", "sizes": "96x96"}]
+        }
+    ],
+    "related_applications": [],
+    "handle_links": "preferred",
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    }
+}

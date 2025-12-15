@@ -1,0 +1,35 @@
+# Netlify/Cloudflare Pages Headers Configuration
+# HSK1 学习 - Security and Caching Headers
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(self), payment=(), usb=()
+
+# Cache static assets
+/*.css
+  Cache-Control: public, max-age=2592000, immutable
+
+/*.js
+  Cache-Control: public, max-age=2592000, immutable
+
+/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Service Worker - no cache
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Manifest
+/manifest.json
+  Cache-Control: public, max-age=604800
+  Content-Type: application/manifest+json
+
+# HTML pages - always check for updates
+/*.html
+  Cache-Control: no-cache
+
+/
+  Cache-Control: no-cache

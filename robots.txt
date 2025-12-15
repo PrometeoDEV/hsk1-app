@@ -1,0 +1,16 @@
+# robots.txt para HSK1 学习 - Instituto Confucio Cochabamba
+# https://hsk1-prep.com
+
+User-agent: *
+Allow: /
+
+# Archivos que no necesitan indexarse
+Disallow: /sw.js
+Disallow: /manifest.json
+Disallow: /icons/generate-icons.html
+
+# Sitemap
+Sitemap: https://hsk1-prep.com/sitemap.xml
+
+# Crawl-delay para no sobrecargar el servidor
+Crawl-delay: 10

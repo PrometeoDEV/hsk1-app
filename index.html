@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Primary Meta Tags -->
+    <title>HSK1 学习 - Preparación Examen Chino Mandarín</title>
+    <meta name="title" content="HSK1 学习 - Preparación Examen Chino Mandarín">
+    <meta name="description" content="Aplicación gratuita para preparar el examen HSK Nivel 1. Aprende 150 palabras de chino mandarín con flashcards, ejercicios, comprensión auditiva, lectura y sistema de repetición espaciada.">
+    <meta name="keywords" content="HSK1, HSK, chino, mandarín, aprender chino, examen chino, flashcards, vocabulario chino, pinyin, hanzi, caracteres chinos, Instituto Confucio">
+    <meta name="author" content="Instituto Confucio Cochabamba">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HSK1 Prep">
+    <meta name="application-name" content="HSK1 Prep">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#e53935">
+    <meta name="msapplication-TileColor" content="#e53935">
+    <meta name="msapplication-navbutton-color" content="#e53935">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsk1.app/">
+    <meta property="og:title" content="HSK1 学习 - Preparación Examen Chino">
+    <meta property="og:description" content="Aprende chino mandarín y prepara tu examen HSK1 con nuestra app gratuita. 150 palabras, flashcards, ejercicios y más.">
+    <meta property="og:image" content="https://hsk1.app/screenshots/og-image.png">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="HSK1 学习">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hsk1.app/">
+    <meta property="twitter:title" content="HSK1 学习 - Preparación Examen Chino">
+    <meta property="twitter:description" content="Aprende chino mandarín y prepara tu examen HSK1 con nuestra app gratuita.">
+    <meta property="twitter:image" content="https://hsk1.app/screenshots/og-image.png">
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23e53935' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='white' font-size='55'>中</text></svg>">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-192.png">
+
+    <!-- Manifest & Splash -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-title" content="HSK1">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="data.js" as="script">
+    <link rel="preload" href="app.js" as="script">
+
+    <!-- Prefetch modules for faster subsequent loads -->
+    <link rel="prefetch" href="modules/statistics.js">
+    <link rel="prefetch" href="modules/listening.js">
+    <link rel="prefetch" href="modules/reading.js">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Critical CSS for loading screen -->
+    <style>
+        .app-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .app-loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-logo {
+            font-size: 80px;
+            color: white;
+            font-family: "Noto Sans SC", sans-serif;
+            animation: pulse 1.5s infinite;
+        }
+        .loader-text { color: white; margin-top: 20px; font-size: 18px; }
+        .loader-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .loader-progress {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes loading {
+            0% { width: 0%; margin-left: 0; }
+            50% { width: 70%; margin-left: 0; }
+            100% { width: 0%; margin-left: 100%; }
+        }
+    </style>
+
+    <!-- Hanzi Writer for stroke order animations -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js" defer></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="app-loader" class="app-loader">
+        <div class="loader-logo">中</div>
+        <div class="loader-text">Cargando HSK1 学习...</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <div id="app" role="application" aria-label="HSK1 学习 - Aplicación de estudio">
+        <!-- Header -->
+        <header class="header" role="banner">
+            <button id="menu-btn" class="icon-btn" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <h1 id="page-title">HSK1 学习</h1>
+            <button id="progress-btn" class="icon-btn" aria-label="Progreso">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20V10M18 20V4M6 20v-4"></path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Sidebar Menu -->
+        <nav id="sidebar" class="sidebar" role="navigation" aria-label="Menú principal">
+            <div class="sidebar-header">
+                <span class="logo">中文</span>
+                <span class="app-name">HSK1 Prep</span>
+            </div>
+            <ul class="nav-menu">
+                <li data-section="home" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    Inicio
+                </li>
+                <li data-section="flashcards">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="M12 8v8M8 12h8"></path>
+                    </svg>
+                    Vocabulario
+                </li>
+                <li data-section="pinyin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"></path>
+                    </svg>
+                    Pinyin y Tonos
+                </li>
+                <li data-section="hanzi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 7h16M4 12h16M7 17h10"></path>
+                    </svg>
+                    Caracteres 汉字
+                </li>
+                <li data-section="grammar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    Gramática
+                </li>
+                <li data-section="lessons">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Lecciones
+                </li>
+                <li data-section="exam">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    Simulador Examen
+                </li>
+                <li data-section="exercises">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                    Ejercicios Extra
+                </li>
+                <li data-section="techniques">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    Técnicas de Estudio
+                </li>
+                <li data-section="listening">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                    </svg>
+                    Comprensión Auditiva
+                </li>
+                <li data-section="reading">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    Lectura
+                </li>
+                <li data-section="statistics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                    </svg>
+                    Estadísticas
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="study-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streak-count">0</span> días estudiando
+                </div>
+                <div class="dark-mode-toggle" id="dark-mode-toggle">
+                    <span>🌙</span>
+                    <label>Modo Oscuro</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-checkbox">
+                        <span class="toggle-slider"></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Overlay for sidebar -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main" aria-label="Contenido principal">
+            <!-- Home Section -->
+            <section id="home-section" class="section active" aria-labelledby="home-title">
+                <!-- User Level & XP Bar -->
+                <div class="user-stats-bar">
+                    <div class="user-level">
+                        <div class="level-badge" id="user-level">1</div>
+                        <span>Nivel</span>
+                    </div>
+                    <div style="flex: 1;">
+                        <div class="xp-bar-container">
+                            <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="xp-text"><span id="current-xp">0</span> / 100 XP</div>
+                    </div>
+                </div>
+
+                <!-- Due Cards Banner (SRS) -->
+                <div class="due-cards-banner" id="due-cards-banner" onclick="app.startSRSReview()" style="display: none;">
+                    <div>
+                        <div class="due-count" id="due-count">0</div>
+                        <div class="due-text">tarjetas para repasar hoy</div>
+                    </div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+
+                <div class="welcome-card">
+                    <h2>¡Bienvenido! 欢迎!</h2>
+                    <p>Prepárate para aprobar el examen HSK Nivel 1</p>
+                    <div class="exam-info">
+                        <div class="info-item">
+                            <span class="info-number">150</span>
+                            <span class="info-label">Palabras</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-number">120/200</span>
+                            <span class="info-label">Para aprobar</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-number">40</span>
+                            <span class="info-label">Preguntas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tone Color Legend -->
+                <div class="tone-legend">
+                    <span style="font-weight: 500; width: 100%; margin-bottom: 4px;">Colores de Tonos:</span>
+                    <div class="tone-legend-item"><span class="tone-dot t1"></span>1º Alto</div>
+                    <div class="tone-legend-item"><span class="tone-dot t2"></span>2º Ascendente</div>
+                    <div class="tone-legend-item"><span class="tone-dot t3"></span>3º Bajo</div>
+                    <div class="tone-legend-item"><span class="tone-dot t4"></span>4º Descendente</div>
+                    <div class="tone-legend-item"><span class="tone-dot t5"></span>Neutro</div>
+                </div>
+
+                <div class="progress-overview">
+                    <h3>Tu Progreso</h3>
+                    <div class="progress-cards">
+                        <div class="progress-card" data-section="flashcards">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-progress" id="vocab-progress-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span class="progress-percent" id="vocab-percent">0%</span>
+                            </div>
+                            <span class="progress-label">Vocabulario</span>
+                        </div>
+                        <div class="progress-card" data-section="pinyin">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-progress" id="pinyin-progress-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span class="progress-percent" id="pinyin-percent">0%</span>
+                            </div>
+                            <span class="progress-label">Pinyin</span>
+                        </div>
+                        <div class="progress-card" data-section="hanzi">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-progress" id="hanzi-progress-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span class="progress-percent" id="hanzi-percent">0%</span>
+                            </div>
+                            <span class="progress-label">Caracteres</span>
+                        </div>
+                        <div class="progress-card" data-section="grammar">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="ring-progress" id="grammar-progress-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <span class="progress-percent" id="grammar-percent">0%</span>
+                            </div>
+                            <span class="progress-label">Gramática</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Práctica Rápida</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" data-action="quick-vocab">
+                            <span class="action-icon">词</span>
+                            <span>10 Palabras</span>
+                        </button>
+                        <button class="action-btn" data-action="quick-pinyin">
+                            <span class="action-icon">拼</span>
+                            <span>Tonos</span>
+                        </button>
+                        <button class="action-btn" data-action="quick-hanzi">
+                            <span class="action-icon">字</span>
+                            <span>Caracteres</span>
+                        </button>
+                        <button class="action-btn" data-action="mini-exam">
+                            <span class="action-icon">考</span>
+                            <span>Mini Examen</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="daily-word">
+                    <h3>Palabra del Día</h3>
+                    <div class="word-card" id="daily-word-card">
+                        <div class="hanzi-large" id="daily-hanzi">你好</div>
+                        <div class="pinyin" id="daily-pinyin">nǐ hǎo</div>
+                        <div class="meaning" id="daily-meaning">Hola</div>
+                        <button class="listen-btn" id="daily-listen">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Daily Goals Section -->
+                <div class="daily-goals">
+                    <h3>Meta Diaria</h3>
+                    <div class="goal-progress">
+                        <div class="goal-item">
+                            <div class="goal-icon">📚</div>
+                            <div class="goal-info">
+                                <div class="goal-label">Palabras estudiadas</div>
+                                <div class="goal-bar-container">
+                                    <div class="goal-bar" id="goal-words-bar" style="width: 0%"></div>
+                                </div>
+                                <div class="goal-text"><span id="goal-words-current">0</span> / <span id="goal-words-target">20</span></div>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-icon">✏️</div>
+                            <div class="goal-info">
+                                <div class="goal-label">Ejercicios completados</div>
+                                <div class="goal-bar-container">
+                                    <div class="goal-bar" id="goal-exercises-bar" style="width: 0%"></div>
+                                </div>
+                                <div class="goal-text"><span id="goal-exercises-current">0</span> / <span id="goal-exercises-target">10</span></div>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-icon">⏱️</div>
+                            <div class="goal-info">
+                                <div class="goal-label">Tiempo de estudio</div>
+                                <div class="goal-bar-container">
+                                    <div class="goal-bar" id="goal-time-bar" style="width: 0%"></div>
+                                </div>
+                                <div class="goal-text"><span id="goal-time-current">0</span> / <span id="goal-time-target">15</span> min</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goal-bonus" id="goal-bonus" style="display: none;">
+                        <span class="bonus-icon">🎉</span>
+                        <span>¡Meta diaria completada! +50 XP bonus</span>
+                    </div>
+                </div>
+
+                <!-- Achievements Section -->
+                <div class="achievements-section">
+                    <h3>Logros Desbloqueados</h3>
+                    <div class="achievements-grid" id="achievements-grid">
+                        <div class="achievement locked" data-id="first-word" title="Aprende tu primera palabra">
+                            <span class="achievement-icon">🌱</span>
+                            <span class="achievement-name">Primer Paso</span>
+                        </div>
+                        <div class="achievement locked" data-id="streak-3" title="3 días seguidos estudiando">
+                            <span class="achievement-icon">🔥</span>
+                            <span class="achievement-name">En Racha</span>
+                        </div>
+                        <div class="achievement locked" data-id="vocab-25" title="Aprende 25 palabras">
+                            <span class="achievement-icon">📖</span>
+                            <span class="achievement-name">Aprendiz</span>
+                        </div>
+                        <div class="achievement locked" data-id="vocab-50" title="Aprende 50 palabras">
+                            <span class="achievement-icon">📚</span>
+                            <span class="achievement-name">Estudiante</span>
+                        </div>
+                        <div class="achievement locked" data-id="vocab-100" title="Aprende 100 palabras">
+                            <span class="achievement-icon">🎓</span>
+                            <span class="achievement-name">Erudito</span>
+                        </div>
+                        <div class="achievement locked" data-id="vocab-150" title="Aprende las 150 palabras">
+                            <span class="achievement-icon">🏆</span>
+                            <span class="achievement-name">Maestro HSK1</span>
+                        </div>
+                        <div class="achievement locked" data-id="streak-7" title="7 días seguidos">
+                            <span class="achievement-icon">⭐</span>
+                            <span class="achievement-name">Semana Perfecta</span>
+                        </div>
+                        <div class="achievement locked" data-id="streak-30" title="30 días seguidos">
+                            <span class="achievement-icon">💎</span>
+                            <span class="achievement-name">Imparable</span>
+                        </div>
+                        <div class="achievement locked" data-id="exam-pass" title="Aprueba un examen de práctica">
+                            <span class="achievement-icon">✅</span>
+                            <span class="achievement-name">Examen Pasado</span>
+                        </div>
+                        <div class="achievement locked" data-id="exam-perfect" title="100% en un examen">
+                            <span class="achievement-icon">💯</span>
+                            <span class="achievement-name">Perfecto</span>
+                        </div>
+                        <div class="achievement locked" data-id="pronunciation" title="Practica pronunciación 10 veces">
+                            <span class="achievement-icon">🎤</span>
+                            <span class="achievement-name">Orador</span>
+                        </div>
+                        <div class="achievement locked" data-id="level-5" title="Alcanza nivel 5">
+                            <span class="achievement-icon">🚀</span>
+                            <span class="achievement-name">Nivel 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dictionary Search Widget -->
+                <div class="dictionary-search-widget">
+                    <h3>Buscar en Diccionario</h3>
+                    <div class="search-input-container">
+                        <input type="text" id="dictionary-search" placeholder="Buscar hanzi, pinyin o español..." autocomplete="off">
+                        <button id="search-btn" class="search-btn">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="search-results" id="search-results"></div>
+                </div>
+
+                <!-- Pronunciation Practice Widget -->
+                <div class="pronunciation-widget">
+                    <h3>Práctica de Pronunciación</h3>
+                    <div class="pronunciation-card" id="pronunciation-card">
+                        <div class="pron-word">
+                            <span class="pron-hanzi" id="pron-hanzi">你好</span>
+                            <span class="pron-pinyin" id="pron-pinyin">nǐ hǎo</span>
+                        </div>
+                        <div class="pron-meaning" id="pron-meaning">hola</div>
+                        <div class="pron-controls">
+                            <button class="pron-btn listen" id="pron-listen" title="Escuchar">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                </svg>
+                            </button>
+                            <button class="pron-btn record" id="pron-record" title="Grabar">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+                                </svg>
+                            </button>
+                            <button class="pron-btn next" id="pron-next" title="Siguiente">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="pron-feedback" id="pron-feedback"></div>
+                        <div class="pron-status" id="pron-status"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flashcards Section -->
+            <section id="flashcards-section" class="section">
+                <div class="section-header">
+                    <h2>Vocabulario 词汇</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Todas</button>
+                        <button class="filter-tab" data-filter="new">Nuevas</button>
+                        <button class="filter-tab" data-filter="learning">Aprendiendo</button>
+                        <button class="filter-tab" data-filter="mastered">Dominadas</button>
+                    </div>
+                </div>
+
+                <div class="lesson-selector">
+                    <label>Lección:</label>
+                    <select id="vocab-lesson-select">
+                        <option value="all">Todas las lecciones</option>
+                        <option value="1">Lección 1: 你好</option>
+                        <option value="2">Lección 2: 谢谢你</option>
+                        <option value="3">Lección 3: 你叫什么名字</option>
+                        <option value="4">Lección 4: 她是我的汉语老师</option>
+                        <option value="5">Lección 5: 她女儿今年二十岁</option>
+                        <option value="6">Lección 6: 我会说汉语</option>
+                        <option value="7">Lección 7: 今天几号</option>
+                        <option value="8">Lección 8: 我想喝茶</option>
+                        <option value="9">Lección 9: 你儿子在哪儿工作</option>
+                        <option value="10">Lección 10: 我能坐这儿吗</option>
+                        <option value="11">Lección 11: 现在几点</option>
+                        <option value="12">Lección 12: 明天天气怎么样</option>
+                        <option value="13">Lección 13: 他在学做中国菜呢</option>
+                        <option value="14">Lección 14: 她买了不少衣服</option>
+                        <option value="15">Lección 15: 我是坐飞机来的</option>
+                    </select>
+                </div>
+
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <div class="card-hanzi" id="card-hanzi">你好</div>
+                                <div class="card-pinyin" id="card-pinyin">nǐ hǎo</div>
+                                <button class="audio-btn" id="card-audio">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                    </svg>
+                                </button>
+                                <p class="tap-hint">Toca para ver significado</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <div class="card-meaning" id="card-meaning">Hola</div>
+                                <div class="card-example" id="card-example">
+                                    <span class="example-cn">你好，我是学生。</span>
+                                    <span class="example-py">Nǐ hǎo, wǒ shì xuésheng.</span>
+                                    <span class="example-es">Hola, soy estudiante.</span>
+                                </div>
+                                <p class="tap-hint">Toca para voltear</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-counter">
+                        <span id="current-card">1</span> / <span id="total-cards">150</span>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="control-btn wrong" id="btn-wrong" title="No lo sé">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                        <button class="control-btn skip" id="btn-skip" title="Saltar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                                <line x1="19" y1="5" x2="19" y2="19"></line>
+                            </svg>
+                        </button>
+                        <button class="control-btn correct" id="btn-correct" title="Lo sé">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="vocab-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="words-learned">0</span>
+                        <span class="stat-label">Aprendidas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="words-reviewing">0</span>
+                        <span class="stat-label">Repasando</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="words-remaining">150</span>
+                        <span class="stat-label">Restantes</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pinyin Section -->
+            <section id="pinyin-section" class="section">
+                <div class="section-header">
+                    <h2>Pinyin y Tonos 拼音</h2>
+                </div>
+
+                <div class="pinyin-tabs">
+                    <button class="pinyin-tab active" data-tab="tones">Los 4 Tonos</button>
+                    <button class="pinyin-tab" data-tab="initials">Iniciales</button>
+                    <button class="pinyin-tab" data-tab="finals">Finales</button>
+                    <button class="pinyin-tab" data-tab="practice">Práctica</button>
+                    <button class="pinyin-tab" data-tab="dictation">Dictado</button>
+                </div>
+
+                <!-- Tones Tab -->
+                <div class="pinyin-content active" id="tones-content">
+                    <div class="tones-intro">
+                        <p>El chino mandarín tiene <strong>4 tonos principales</strong> más un tono neutro. Los tonos son esenciales para distinguir el significado de las palabras.</p>
+                    </div>
+
+                    <div class="tones-grid">
+                        <div class="tone-card" data-tone="1">
+                            <div class="tone-symbol">ˉ</div>
+                            <div class="tone-number">1º Tono</div>
+                            <div class="tone-desc">Alto y sostenido</div>
+                            <div class="tone-example">
+                                <span class="tone-hanzi">妈</span>
+                                <span class="tone-pinyin">mā</span>
+                                <span class="tone-meaning">mamá</span>
+                            </div>
+                            <button class="tone-listen-btn">Escuchar</button>
+                        </div>
+
+                        <div class="tone-card" data-tone="2">
+                            <div class="tone-symbol">ˊ</div>
+                            <div class="tone-number">2º Tono</div>
+                            <div class="tone-desc">Ascendente</div>
+                            <div class="tone-example">
+                                <span class="tone-hanzi">麻</span>
+                                <span class="tone-pinyin">má</span>
+                                <span class="tone-meaning">cáñamo</span>
+                            </div>
+                            <button class="tone-listen-btn">Escuchar</button>
+                        </div>
+
+                        <div class="tone-card" data-tone="3">
+                            <div class="tone-symbol">ˇ</div>
+                            <div class="tone-number">3º Tono</div>
+                            <div class="tone-desc">Descendente-ascendente</div>
+                            <div class="tone-example">
+                                <span class="tone-hanzi">马</span>
+                                <span class="tone-pinyin">mǎ</span>
+                                <span class="tone-meaning">caballo</span>
+                            </div>
+                            <button class="tone-listen-btn">Escuchar</button>
+                        </div>
+
+                        <div class="tone-card" data-tone="4">
+                            <div class="tone-symbol">ˋ</div>
+                            <div class="tone-number">4º Tono</div>
+                            <div class="tone-desc">Descendente fuerte</div>
+                            <div class="tone-example">
+                                <span class="tone-hanzi">骂</span>
+                                <span class="tone-pinyin">mà</span>
+                                <span class="tone-meaning">regañar</span>
+                            </div>
+                            <button class="tone-listen-btn">Escuchar</button>
+                        </div>
+                    </div>
+
+                    <div class="tone-rules">
+                        <h3>Reglas de Cambio de Tono (Tone Sandhi)</h3>
+                        <div class="rule-card">
+                            <h4>3º + 3º Tono → 2º + 3º</h4>
+                            <p>Cuando dos terceros tonos están juntos, el primero se lee como segundo tono.</p>
+                            <div class="rule-example">
+                                <span>你好 (nǐ hǎo) → se pronuncia "ní hǎo"</span>
+                            </div>
+                        </div>
+                        <div class="rule-card">
+                            <h4>Cambio de 不 (bù)</h4>
+                            <p>Antes de un 4º tono, 不 cambia a 2º tono (bú).</p>
+                            <div class="rule-example">
+                                <span>不是 (bù shì) → se pronuncia "bú shì"</span>
+                            </div>
+                        </div>
+                        <div class="rule-card">
+                            <h4>Cambio de 一 (yī)</h4>
+                            <p>Antes de 1º, 2º, 3º tono → yì (4º tono)<br>
+                            Antes de 4º tono → yí (2º tono)</p>
+                            <div class="rule-example">
+                                <span>一个 (yī gè) → se pronuncia "yí gè"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Initials Tab -->
+                <div class="pinyin-content" id="initials-content">
+                    <div class="initials-grid">
+                        <div class="initial-group">
+                            <h4>Labiales</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="b">b</button>
+                                <button class="initial-btn" data-initial="p">p</button>
+                                <button class="initial-btn" data-initial="m">m</button>
+                                <button class="initial-btn" data-initial="f">f</button>
+                            </div>
+                        </div>
+                        <div class="initial-group">
+                            <h4>Alveolares</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="d">d</button>
+                                <button class="initial-btn" data-initial="t">t</button>
+                                <button class="initial-btn" data-initial="n">n</button>
+                                <button class="initial-btn" data-initial="l">l</button>
+                            </div>
+                        </div>
+                        <div class="initial-group">
+                            <h4>Velares</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="g">g</button>
+                                <button class="initial-btn" data-initial="k">k</button>
+                                <button class="initial-btn" data-initial="h">h</button>
+                            </div>
+                        </div>
+                        <div class="initial-group">
+                            <h4>Palatales</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="j">j</button>
+                                <button class="initial-btn" data-initial="q">q</button>
+                                <button class="initial-btn" data-initial="x">x</button>
+                            </div>
+                        </div>
+                        <div class="initial-group">
+                            <h4>Retroflejas</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="zh">zh</button>
+                                <button class="initial-btn" data-initial="ch">ch</button>
+                                <button class="initial-btn" data-initial="sh">sh</button>
+                                <button class="initial-btn" data-initial="r">r</button>
+                            </div>
+                        </div>
+                        <div class="initial-group">
+                            <h4>Dentales</h4>
+                            <div class="initial-buttons">
+                                <button class="initial-btn" data-initial="z">z</button>
+                                <button class="initial-btn" data-initial="c">c</button>
+                                <button class="initial-btn" data-initial="s">s</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finals Tab -->
+                <div class="pinyin-content" id="finals-content">
+                    <div class="finals-grid">
+                        <div class="final-group">
+                            <h4>Simples</h4>
+                            <div class="final-buttons">
+                                <button class="final-btn">a</button>
+                                <button class="final-btn">o</button>
+                                <button class="final-btn">e</button>
+                                <button class="final-btn">i</button>
+                                <button class="final-btn">u</button>
+                                <button class="final-btn">ü</button>
+                            </div>
+                        </div>
+                        <div class="final-group">
+                            <h4>Compuestas</h4>
+                            <div class="final-buttons">
+                                <button class="final-btn">ai</button>
+                                <button class="final-btn">ei</button>
+                                <button class="final-btn">ao</button>
+                                <button class="final-btn">ou</button>
+                                <button class="final-btn">ia</button>
+                                <button class="final-btn">ie</button>
+                                <button class="final-btn">iu</button>
+                                <button class="final-btn">ua</button>
+                                <button class="final-btn">uo</button>
+                                <button class="final-btn">üe</button>
+                            </div>
+                        </div>
+                        <div class="final-group">
+                            <h4>Nasales</h4>
+                            <div class="final-buttons">
+                                <button class="final-btn">an</button>
+                                <button class="final-btn">en</button>
+                                <button class="final-btn">in</button>
+                                <button class="final-btn">un</button>
+                                <button class="final-btn">ang</button>
+                                <button class="final-btn">eng</button>
+                                <button class="final-btn">ing</button>
+                                <button class="final-btn">ong</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practice Tab -->
+                <div class="pinyin-content" id="practice-content">
+                    <div class="practice-mode-selector">
+                        <button class="practice-mode active" data-mode="identify-tone">Identificar Tono</button>
+                        <button class="practice-mode" data-mode="match-pinyin">Emparejar Pinyin</button>
+                    </div>
+
+                    <div class="practice-area" id="tone-practice">
+                        <div class="practice-question">
+                            <div class="practice-hanzi" id="practice-hanzi">好</div>
+                            <p>¿Qué tono tiene esta palabra?</p>
+                        </div>
+                        <div class="tone-options">
+                            <button class="tone-option" data-tone="1">1º Tono (ˉ)</button>
+                            <button class="tone-option" data-tone="2">2º Tono (ˊ)</button>
+                            <button class="tone-option" data-tone="3">3º Tono (ˇ)</button>
+                            <button class="tone-option" data-tone="4">4º Tono (ˋ)</button>
+                        </div>
+                        <div class="practice-feedback" id="tone-feedback"></div>
+                        <button class="next-practice-btn" id="next-tone-practice">Siguiente</button>
+                    </div>
+                </div>
+
+                <!-- Dictation Tab -->
+                <div class="pinyin-content" id="dictation-content">
+                    <div class="dictation-intro">
+                        <p>Escucha la palabra y escribe el <strong>pinyin</strong> o el <strong>significado</strong>.</p>
+                    </div>
+
+                    <div class="dictation-area">
+                        <div class="dictation-controls">
+                            <button class="dictation-play-btn" id="dictation-play">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                                Escuchar
+                            </button>
+                            <button class="dictation-play-btn slow" id="dictation-play-slow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                </svg>
+                                Lento
+                            </button>
+                        </div>
+
+                        <div class="dictation-mode-toggle">
+                            <button class="dictation-mode-btn active" data-mode="pinyin">Escribir Pinyin</button>
+                            <button class="dictation-mode-btn" data-mode="meaning">Escribir Significado</button>
+                        </div>
+
+                        <div class="dictation-input-area">
+                            <input type="text" id="dictation-input" placeholder="Escribe tu respuesta aquí..." autocomplete="off">
+                            <button class="dictation-submit-btn" id="dictation-submit">Verificar</button>
+                        </div>
+
+                        <div class="dictation-hint" id="dictation-hint" style="display: none;">
+                            <button class="hint-btn" id="show-hint">Mostrar pista</button>
+                            <div class="hint-content" id="hint-content"></div>
+                        </div>
+
+                        <div class="dictation-feedback" id="dictation-feedback"></div>
+
+                        <div class="dictation-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="dictation-correct">0</span>
+                                <span class="stat-label">Correctas</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="dictation-total">0</span>
+                                <span class="stat-label">Total</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="dictation-streak">0</span>
+                                <span class="stat-label">Racha</span>
+                            </div>
+                        </div>
+
+                        <button class="next-practice-btn" id="next-dictation">Siguiente Palabra</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hanzi Section -->
+            <section id="hanzi-section" class="section">
+                <div class="section-header">
+                    <h2>Caracteres Chinos 汉字</h2>
+                </div>
+
+                <div class="hanzi-tabs">
+                    <button class="hanzi-tab active" data-tab="strokes">Trazos</button>
+                    <button class="hanzi-tab" data-tab="animation">Animación</button>
+                    <button class="hanzi-tab" data-tab="writing">Escritura</button>
+                    <button class="hanzi-tab" data-tab="radicals">Radicales</button>
+                    <button class="hanzi-tab" data-tab="structure">Estructura</button>
+                    <button class="hanzi-tab" data-tab="practice-hanzi">Quiz</button>
+                </div>
+
+                <!-- Strokes Tab -->
+                <div class="hanzi-content active" id="strokes-content">
+                    <p class="hanzi-intro">Los caracteres chinos se construyen con trazos básicos. Aprende el orden y la dirección correcta de cada trazo.</p>
+
+                    <div class="strokes-grid">
+                        <div class="stroke-card">
+                            <div class="stroke-visual">一</div>
+                            <div class="stroke-name">横 (héng)</div>
+                            <div class="stroke-desc">Horizontal (→)</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">丨</div>
+                            <div class="stroke-name">竖 (shù)</div>
+                            <div class="stroke-desc">Vertical (↓)</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">丿</div>
+                            <div class="stroke-name">撇 (piě)</div>
+                            <div class="stroke-desc">Caída izquierda (↙)</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">丶</div>
+                            <div class="stroke-name">点 (diǎn)</div>
+                            <div class="stroke-desc">Punto</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">㇏</div>
+                            <div class="stroke-name">捺 (nà)</div>
+                            <div class="stroke-desc">Caída derecha (↘)</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">㇀</div>
+                            <div class="stroke-name">提 (tí)</div>
+                            <div class="stroke-desc">Levantamiento (↗)</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">㇁</div>
+                            <div class="stroke-name">横折 (héngzhé)</div>
+                            <div class="stroke-desc">Horizontal + giro</div>
+                        </div>
+                        <div class="stroke-card">
+                            <div class="stroke-visual">亅</div>
+                            <div class="stroke-name">竖钩 (shùgōu)</div>
+                            <div class="stroke-desc">Vertical + gancho</div>
+                        </div>
+                    </div>
+
+                    <div class="stroke-rules">
+                        <h3>Reglas de Orden de Trazos</h3>
+                        <ul class="rules-list">
+                            <li><strong>Horizontal antes que vertical:</strong> 十 (shí)</li>
+                            <li><strong>Caída izquierda antes que derecha:</strong> 人 (rén)</li>
+                            <li><strong>De arriba hacia abajo:</strong> 三 (sān)</li>
+                            <li><strong>De izquierda a derecha:</strong> 川 (chuān)</li>
+                            <li><strong>Exterior antes que interior:</strong> 月 (yuè)</li>
+                            <li><strong>Interior antes de cerrar:</strong> 国 (guó)</li>
+                            <li><strong>Centro antes que lados:</strong> 小 (xiǎo)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Animation Tab - Stroke Order Animation -->
+                <div class="hanzi-content" id="animation-content">
+                    <p class="hanzi-intro">Observa cómo se escriben los caracteres con animaciones del orden de trazos.</p>
+
+                    <div class="animation-controls">
+                        <div class="char-input-group">
+                            <label>Escribe un carácter:</label>
+                            <input type="text" id="animation-char-input" maxlength="1" placeholder="中" value="中">
+                            <button class="btn-primary" id="load-animation">Cargar</button>
+                        </div>
+
+                        <div class="quick-chars">
+                            <span>Caracteres populares:</span>
+                            <div class="quick-char-btns">
+                                <button class="quick-char" data-char="中">中</button>
+                                <button class="quick-char" data-char="国">国</button>
+                                <button class="quick-char" data-char="学">学</button>
+                                <button class="quick-char" data-char="好">好</button>
+                                <button class="quick-char" data-char="我">我</button>
+                                <button class="quick-char" data-char="你">你</button>
+                                <button class="quick-char" data-char="是">是</button>
+                                <button class="quick-char" data-char="的">的</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animation-display">
+                        <div class="hanzi-writer-container" id="stroke-animation-target"></div>
+                        <div class="animation-info">
+                            <div class="char-info" id="animation-char-info">
+                                <span class="big-char" id="animation-current-char">中</span>
+                                <span class="stroke-count">Trazos: <strong id="animation-stroke-count">4</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animation-buttons">
+                        <button class="anim-btn" id="animate-stroke">
+                            <span class="btn-icon">▶</span>
+                            Animar
+                        </button>
+                        <button class="anim-btn" id="animate-stroke-by-stroke">
+                            <span class="btn-icon">⏭</span>
+                            Trazo por Trazo
+                        </button>
+                        <button class="anim-btn" id="reset-animation">
+                            <span class="btn-icon">↺</span>
+                            Reiniciar
+                        </button>
+                    </div>
+
+                    <div class="animation-tips">
+                        <h4>💡 Consejos para memorizar trazos:</h4>
+                        <ul>
+                            <li>Siempre de <strong>izquierda a derecha</strong></li>
+                            <li>Siempre de <strong>arriba hacia abajo</strong></li>
+                            <li>Los trazos <strong>horizontales antes que verticales</strong></li>
+                            <li>El <strong>exterior antes que el interior</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Writing Tab - Practice Canvas -->
+                <div class="hanzi-content" id="writing-content">
+                    <p class="hanzi-intro">Practica escribiendo caracteres con tu dedo o mouse. El sistema te guiará trazo por trazo.</p>
+
+                    <div class="writing-controls">
+                        <div class="char-input-group">
+                            <label>Carácter a practicar:</label>
+                            <input type="text" id="writing-char-input" maxlength="1" placeholder="好" value="好">
+                            <button class="btn-primary" id="load-writing">Cargar</button>
+                        </div>
+
+                        <div class="quick-chars">
+                            <span>Caracteres HSK1:</span>
+                            <div class="quick-char-btns">
+                                <button class="quick-char-write" data-char="人">人</button>
+                                <button class="quick-char-write" data-char="大">大</button>
+                                <button class="quick-char-write" data-char="小">小</button>
+                                <button class="quick-char-write" data-char="上">上</button>
+                                <button class="quick-char-write" data-char="下">下</button>
+                                <button class="quick-char-write" data-char="天">天</button>
+                                <button class="quick-char-write" data-char="女">女</button>
+                                <button class="quick-char-write" data-char="子">子</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="writing-display">
+                        <div class="hanzi-writer-container" id="writing-practice-target"></div>
+                        <div class="writing-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="writing-mistakes">0</span>
+                                <span class="stat-label">Errores</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="writing-completed">0</span>
+                                <span class="stat-label">Completados</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="writing-mode-toggle">
+                        <span>Modo:</span>
+                        <button class="writing-mode active" data-mode="quiz">Con Guía</button>
+                        <button class="writing-mode" data-mode="free">Libre</button>
+                    </div>
+
+                    <div class="writing-feedback" id="writing-feedback"></div>
+
+                    <div class="writing-buttons">
+                        <button class="write-btn" id="show-hint-writing">
+                            <span class="btn-icon">💡</span>
+                            Mostrar Pista
+                        </button>
+                        <button class="write-btn" id="show-outline">
+                            <span class="btn-icon">👁</span>
+                            Ver Contorno
+                        </button>
+                        <button class="write-btn" id="restart-writing">
+                            <span class="btn-icon">↺</span>
+                            Reiniciar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Radicals Tab -->
+                <div class="hanzi-content" id="radicals-content">
+                    <p class="hanzi-intro">Los radicales (偏旁) son componentes que dan pistas sobre el significado de los caracteres.</p>
+
+                    <div class="radicals-grid">
+                        <div class="radical-card">
+                            <div class="radical-char">氵</div>
+                            <div class="radical-name">三点水</div>
+                            <div class="radical-meaning">Agua</div>
+                            <div class="radical-examples">汉, 没, 海</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">讠</div>
+                            <div class="radical-name">言字旁</div>
+                            <div class="radical-meaning">Palabra/Habla</div>
+                            <div class="radical-examples">说, 话, 谢, 请</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">口</div>
+                            <div class="radical-name">口字旁</div>
+                            <div class="radical-meaning">Boca</div>
+                            <div class="radical-examples">吃, 喝, 吗, 呢</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">女</div>
+                            <div class="radical-name">女字旁</div>
+                            <div class="radical-meaning">Mujer</div>
+                            <div class="radical-examples">妈, 姐, 她, 好</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">亻</div>
+                            <div class="radical-name">单人旁</div>
+                            <div class="radical-meaning">Persona</div>
+                            <div class="radical-examples">你, 他, 们, 做</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">钅</div>
+                            <div class="radical-name">金字旁</div>
+                            <div class="radical-meaning">Metal/Dinero</div>
+                            <div class="radical-examples">钱, 钟</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">饣</div>
+                            <div class="radical-name">食字旁</div>
+                            <div class="radical-meaning">Comida</div>
+                            <div class="radical-examples">饭, 饿</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">辶</div>
+                            <div class="radical-name">走之底</div>
+                            <div class="radical-meaning">Caminar</div>
+                            <div class="radical-examples">这, 那, 道</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">心</div>
+                            <div class="radical-name">心字底</div>
+                            <div class="radical-meaning">Corazón</div>
+                            <div class="radical-examples">想, 您, 怎</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">日</div>
+                            <div class="radical-name">日字旁</div>
+                            <div class="radical-meaning">Sol/Día</div>
+                            <div class="radical-examples">明, 时, 星</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">月</div>
+                            <div class="radical-name">月字旁</div>
+                            <div class="radical-meaning">Luna/Cuerpo</div>
+                            <div class="radical-examples">朋, 服</div>
+                        </div>
+                        <div class="radical-card">
+                            <div class="radical-char">宀</div>
+                            <div class="radical-name">宝盖头</div>
+                            <div class="radical-meaning">Techo/Casa</div>
+                            <div class="radical-examples">家, 字, 学</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structure Tab -->
+                <div class="hanzi-content" id="structure-content">
+                    <p class="hanzi-intro">Los caracteres chinos tienen diferentes estructuras que ayudan a identificar y memorizar sus componentes.</p>
+
+                    <div class="structure-grid">
+                        <div class="structure-card">
+                            <h4>独体结构</h4>
+                            <p>Componente único</p>
+                            <div class="structure-examples">
+                                <span>人</span>
+                                <span>中</span>
+                                <span>大</span>
+                                <span>小</span>
+                                <span>山</span>
+                            </div>
+                        </div>
+                        <div class="structure-card">
+                            <h4>左右结构</h4>
+                            <p>Izquierda-Derecha</p>
+                            <div class="structure-examples">
+                                <span>你</span>
+                                <span>好</span>
+                                <span>谁</span>
+                                <span>说</span>
+                                <span>做</span>
+                            </div>
+                        </div>
+                        <div class="structure-card">
+                            <h4>上下结构</h4>
+                            <p>Arriba-Abajo</p>
+                            <div class="structure-examples">
+                                <span>是</span>
+                                <span>爸</span>
+                                <span>茶</span>
+                                <span>字</span>
+                                <span>高</span>
+                            </div>
+                        </div>
+                        <div class="structure-card">
+                            <h4>半包围结构</h4>
+                            <p>Semi-cerrado</p>
+                            <div class="structure-examples">
+                                <span>这</span>
+                                <span>医</span>
+                                <span>店</span>
+                                <span>习</span>
+                            </div>
+                        </div>
+                        <div class="structure-card">
+                            <h4>全包围结构</h4>
+                            <p>Cerrado completo</p>
+                            <div class="structure-examples">
+                                <span>国</span>
+                                <span>四</span>
+                                <span>回</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hanzi Practice Tab -->
+                <div class="hanzi-content" id="practice-hanzi-content">
+                    <div class="hanzi-practice-area">
+                        <div class="hanzi-display">
+                            <div class="hanzi-large" id="practice-char">中</div>
+                            <div class="hanzi-info">
+                                <span class="info-pinyin" id="practice-char-pinyin">zhōng</span>
+                                <span class="info-meaning" id="practice-char-meaning">centro, medio</span>
+                            </div>
+                        </div>
+
+                        <div class="hanzi-quiz">
+                            <p>¿Cuál es el significado de este carácter?</p>
+                            <div class="hanzi-options" id="hanzi-options">
+                                <button class="hanzi-option">Arriba</button>
+                                <button class="hanzi-option">Centro</button>
+                                <button class="hanzi-option">Abajo</button>
+                                <button class="hanzi-option">Fuera</button>
+                            </div>
+                        </div>
+
+                        <div class="hanzi-feedback" id="hanzi-feedback"></div>
+                        <button class="next-practice-btn" id="next-hanzi-practice">Siguiente Carácter</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grammar Section -->
+            <section id="grammar-section" class="section">
+                <div class="section-header">
+                    <h2>Gramática 语法</h2>
+                </div>
+
+                <div class="grammar-list">
+                    <!-- Grammar Point 1 -->
+                    <div class="grammar-card" data-grammar="shi">
+                        <div class="grammar-header">
+                            <h3>Oración con 是 (shì)</h3>
+                            <span class="lesson-tag">Lección 3</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Estructura:</p>
+                                <p class="structure-formula">Sujeto + 是 + Sustantivo/Pronombre</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我是学生。</span>
+                                    <span class="py">Wǒ shì xuésheng.</span>
+                                    <span class="es">Yo soy estudiante.</span>
+                                </div>
+                                <div class="example">
+                                    <span class="cn">她是老师。</span>
+                                    <span class="py">Tā shì lǎoshī.</span>
+                                    <span class="es">Ella es profesora.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-negative">
+                                <p><strong>Negación:</strong> Sujeto + 不是 + Sustantivo</p>
+                                <div class="example">
+                                    <span class="cn">我不是中国人。</span>
+                                    <span class="py">Wǒ bú shì Zhōngguórén.</span>
+                                    <span class="es">No soy chino.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 2 -->
+                    <div class="grammar-card" data-grammar="ma">
+                        <div class="grammar-header">
+                            <h3>Preguntas con 吗 (ma)</h3>
+                            <span class="lesson-tag">Lección 3</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Estructura:</p>
+                                <p class="structure-formula">Oración afirmativa + 吗？</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">你是老师吗？</span>
+                                    <span class="py">Nǐ shì lǎoshī ma?</span>
+                                    <span class="es">¿Eres profesor?</span>
+                                </div>
+                                <div class="example">
+                                    <span class="cn">他是美国人吗？</span>
+                                    <span class="py">Tā shì Měiguórén ma?</span>
+                                    <span class="es">¿Es él estadounidense?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 3 -->
+                    <div class="grammar-card" data-grammar="de">
+                        <div class="grammar-header">
+                            <h3>Partícula estructural 的 (de)</h3>
+                            <span class="lesson-tag">Lección 4</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Estructura (posesión):</p>
+                                <p class="structure-formula">Poseedor + 的 + Poseído</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我的书</span>
+                                    <span class="py">wǒ de shū</span>
+                                    <span class="es">mi libro</span>
+                                </div>
+                                <div class="example">
+                                    <span class="cn">她的老师</span>
+                                    <span class="py">tā de lǎoshī</span>
+                                    <span class="es">su profesor (de ella)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 4 -->
+                    <div class="grammar-card" data-grammar="you">
+                        <div class="grammar-header">
+                            <h3>Verbo 有 (yǒu) - Tener/Haber</h3>
+                            <span class="lesson-tag">Lección 5, 10</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Posesión:</p>
+                                <p class="structure-formula">Sujeto + 有 + Objeto</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我有三个朋友。</span>
+                                    <span class="py">Wǒ yǒu sān gè péngyou.</span>
+                                    <span class="es">Tengo tres amigos.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-structure">
+                                <p class="structure-label">Existencia:</p>
+                                <p class="structure-formula">Lugar + 有 + Cosa/Persona</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">桌子上有一本书。</span>
+                                    <span class="py">Zhuōzi shàng yǒu yì běn shū.</span>
+                                    <span class="es">Hay un libro en la mesa.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-negative">
+                                <p><strong>Negación:</strong> 没有 (méi yǒu) - No tener/No haber</p>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 5 -->
+                    <div class="grammar-card" data-grammar="hui">
+                        <div class="grammar-header">
+                            <h3>Verbo modal 会 (huì)</h3>
+                            <span class="lesson-tag">Lección 6, 12</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">1. Habilidad adquirida:</p>
+                                <p class="structure-formula">Sujeto + 会 + Verbo</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我会说汉语。</span>
+                                    <span class="py">Wǒ huì shuō Hànyǔ.</span>
+                                    <span class="es">Sé hablar chino.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-structure">
+                                <p class="structure-label">2. Posibilidad futura:</p>
+                                <p class="structure-formula">Sujeto + 会 + Verbo (predicción)</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">明天会下雨。</span>
+                                    <span class="py">Míngtiān huì xià yǔ.</span>
+                                    <span class="es">Mañana va a llover.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 6 -->
+                    <div class="grammar-card" data-grammar="xiang">
+                        <div class="grammar-header">
+                            <h3>Verbo modal 想 (xiǎng)</h3>
+                            <span class="lesson-tag">Lección 8</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Deseo/Intención:</p>
+                                <p class="structure-formula">Sujeto + 想 + Verbo</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我想喝茶。</span>
+                                    <span class="py">Wǒ xiǎng hē chá.</span>
+                                    <span class="es">Quiero beber té.</span>
+                                </div>
+                                <div class="example">
+                                    <span class="cn">你想吃什么？</span>
+                                    <span class="py">Nǐ xiǎng chī shénme?</span>
+                                    <span class="es">¿Qué quieres comer?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 7 -->
+                    <div class="grammar-card" data-grammar="zai">
+                        <div class="grammar-header">
+                            <h3>Verbo/Preposición 在 (zài)</h3>
+                            <span class="lesson-tag">Lección 9, 13</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">1. Ubicación (verbo):</p>
+                                <p class="structure-formula">Sujeto + 在 + Lugar</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">他在医院。</span>
+                                    <span class="py">Tā zài yīyuàn.</span>
+                                    <span class="es">Él está en el hospital.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-structure">
+                                <p class="structure-label">2. Lugar de acción (preposición):</p>
+                                <p class="structure-formula">Sujeto + 在 + Lugar + Verbo</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我在家看书。</span>
+                                    <span class="py">Wǒ zài jiā kàn shū.</span>
+                                    <span class="es">Leo en casa.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-structure">
+                                <p class="structure-label">3. Acción en progreso:</p>
+                                <p class="structure-formula">Sujeto + 在 + Verbo + 呢</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">他在学做中国菜呢。</span>
+                                    <span class="py">Tā zài xué zuò Zhōngguó cài ne.</span>
+                                    <span class="es">Él está aprendiendo a cocinar comida china.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 8 -->
+                    <div class="grammar-card" data-grammar="le">
+                        <div class="grammar-header">
+                            <h3>Partícula 了 (le)</h3>
+                            <span class="lesson-tag">Lección 5, 14</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">1. Cambio de estado:</p>
+                                <p class="structure-formula">Oración + 了</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">她20岁了。</span>
+                                    <span class="py">Tā èrshí suì le.</span>
+                                    <span class="es">Ella ya tiene 20 años.</span>
+                                </div>
+                            </div>
+                            <div class="grammar-structure">
+                                <p class="structure-label">2. Acción completada:</p>
+                                <p class="structure-formula">Verbo + 了 + Objeto</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">她买了很多衣服。</span>
+                                    <span class="py">Tā mǎi le hěn duō yīfu.</span>
+                                    <span class="es">Ella compró mucha ropa.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Grammar Point 9 -->
+                    <div class="grammar-card" data-grammar="shide">
+                        <div class="grammar-header">
+                            <h3>Estructura 是...的 (shì...de)</h3>
+                            <span class="lesson-tag">Lección 15</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="grammar-structure">
+                                <p class="structure-label">Énfasis en tiempo/lugar/modo:</p>
+                                <p class="structure-formula">Sujeto + 是 + [Tiempo/Lugar/Modo] + Verbo + 的</p>
+                            </div>
+                            <div class="grammar-examples">
+                                <div class="example">
+                                    <span class="cn">我是坐飞机来的。</span>
+                                    <span class="py">Wǒ shì zuò fēijī lái de.</span>
+                                    <span class="es">Vine en avión. (énfasis en cómo)</span>
+                                </div>
+                                <div class="example">
+                                    <span class="cn">你是什么时候来的？</span>
+                                    <span class="py">Nǐ shì shénme shíhou lái de?</span>
+                                    <span class="es">¿Cuándo viniste? (énfasis en cuándo)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+
+                    <!-- Question Words -->
+                    <div class="grammar-card" data-grammar="questions">
+                        <div class="grammar-header">
+                            <h3>Palabras Interrogativas</h3>
+                            <span class="lesson-tag">Varias</span>
+                        </div>
+                        <div class="grammar-content">
+                            <div class="question-words-grid">
+                                <div class="qword">
+                                    <span class="qword-cn">什么</span>
+                                    <span class="qword-py">shénme</span>
+                                    <span class="qword-es">qué</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">谁</span>
+                                    <span class="qword-py">shéi</span>
+                                    <span class="qword-es">quién</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">哪</span>
+                                    <span class="qword-py">nǎ</span>
+                                    <span class="qword-es">cuál</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">哪儿</span>
+                                    <span class="qword-py">nǎr</span>
+                                    <span class="qword-es">dónde</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">几</span>
+                                    <span class="qword-py">jǐ</span>
+                                    <span class="qword-es">cuántos (pequeño)</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">多少</span>
+                                    <span class="qword-py">duōshao</span>
+                                    <span class="qword-es">cuánto/cuántos</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">怎么</span>
+                                    <span class="qword-py">zěnme</span>
+                                    <span class="qword-es">cómo (manera)</span>
+                                </div>
+                                <div class="qword">
+                                    <span class="qword-cn">怎么样</span>
+                                    <span class="qword-py">zěnmeyàng</span>
+                                    <span class="qword-es">cómo (estado)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="practice-grammar-btn">Practicar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lessons Section -->
+            <section id="lessons-section" class="section">
+                <div class="section-header">
+                    <h2>Lecciones 课文</h2>
+                </div>
+
+                <div class="lessons-grid" id="lessons-grid">
+                    <!-- Lessons will be generated by JavaScript -->
+                </div>
+
+                <!-- Lesson Detail View -->
+                <div id="lesson-detail" class="lesson-detail hidden">
+                    <button class="back-btn" id="back-to-lessons">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        Volver
+                    </button>
+                    <div class="lesson-content" id="lesson-content">
+                        <!-- Lesson content will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Section -->
+            <section id="exam-section" class="section">
+                <div class="section-header">
+                    <h2>Simulador de Examen 考试</h2>
+                </div>
+
+                <div id="exam-start" class="exam-start">
+                    <div class="exam-info-card">
+                        <h3>Información del Examen HSK 1</h3>
+                        <div class="exam-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Duración:</span>
+                                <span class="detail-value">~40 minutos</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Preguntas:</span>
+                                <span class="detail-value">40 (20 auditivas + 20 lectura)</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Puntuación máxima:</span>
+                                <span class="detail-value">200 puntos</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Para aprobar:</span>
+                                <span class="detail-value">120 puntos (60%)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exam-options">
+                        <h3>Selecciona tipo de práctica:</h3>
+                        <div class="exam-type-cards">
+                            <div class="exam-type-card" data-type="full">
+                                <div class="type-icon">📝</div>
+                                <h4>Examen Completo</h4>
+                                <p>40 preguntas, tiempo real</p>
+                            </div>
+                            <div class="exam-type-card" data-type="listening">
+                                <div class="type-icon">👂</div>
+                                <h4>Solo Comprensión Auditiva</h4>
+                                <p>20 preguntas</p>
+                            </div>
+                            <div class="exam-type-card" data-type="reading">
+                                <div class="type-icon">📖</div>
+                                <h4>Solo Lectura</h4>
+                                <p>20 preguntas</p>
+                            </div>
+                            <div class="exam-type-card" data-type="mini">
+                                <div class="type-icon">⚡</div>
+                                <h4>Mini Examen</h4>
+                                <p>10 preguntas rápidas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="start-exam-btn" id="start-exam-btn">Comenzar Examen</button>
+                </div>
+
+                <div id="exam-active" class="exam-active hidden">
+                    <div class="exam-header">
+                        <div class="exam-timer" id="exam-timer">40:00</div>
+                        <div class="exam-progress">
+                            <span id="exam-question-num">1</span> / <span id="exam-total-questions">40</span>
+                        </div>
+                    </div>
+
+                    <div class="exam-question-container" id="exam-question-container">
+                        <!-- Question content will be loaded here -->
+                    </div>
+
+                    <div class="exam-navigation">
+                        <button class="exam-nav-btn" id="exam-prev" disabled>Anterior</button>
+                        <button class="exam-nav-btn primary" id="exam-next">Siguiente</button>
+                    </div>
+                </div>
+
+                <div id="exam-results" class="exam-results hidden">
+                    <div class="results-card">
+                        <h3>Resultados del Examen</h3>
+                        <div class="score-display">
+                            <div class="score-circle" id="score-circle">
+                                <span class="score-number" id="final-score">0</span>
+                                <span class="score-max">/ 200</span>
+                            </div>
+                        </div>
+                        <div class="result-status" id="result-status">
+                            <!-- Pass/Fail message -->
+                        </div>
+                        <div class="score-breakdown">
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Comprensión Auditiva:</span>
+                                <span class="breakdown-value" id="listening-score">0/100</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">Lectura:</span>
+                                <span class="breakdown-value" id="reading-score">0/100</span>
+                            </div>
+                        </div>
+                        <div class="results-actions">
+                            <button class="results-btn" id="review-answers">Ver Respuestas</button>
+                            <button class="results-btn primary" id="retry-exam">Intentar de Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exercises Section -->
+            <section id="exercises-section" class="section">
+                <div class="section-header">
+                    <h2>Ejercicios Extra 练习</h2>
+                </div>
+
+                <div class="exercise-tabs">
+                    <button class="exercise-tab active" data-tab="matching">Emparejamiento</button>
+                    <button class="exercise-tab" data-tab="sentence">Ordenar Oraciones</button>
+                    <button class="exercise-tab" data-tab="conversation">Conversación</button>
+                </div>
+
+                <!-- Matching Exercise -->
+                <div class="exercise-content active" id="matching-content">
+                    <div class="matching-intro">
+                        <p>Conecta cada palabra china con su significado correcto.</p>
+                    </div>
+
+                    <div class="matching-game" id="matching-game">
+                        <div class="matching-column left" id="matching-left">
+                            <!-- Chinese words will be generated here -->
+                        </div>
+                        <div class="matching-column right" id="matching-right">
+                            <!-- Meanings will be generated here -->
+                        </div>
+                    </div>
+
+                    <div class="matching-feedback" id="matching-feedback"></div>
+
+                    <div class="matching-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="matching-pairs">0</span>
+                            <span class="stat-label">Pares</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="matching-time">0:00</span>
+                            <span class="stat-label">Tiempo</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="matching-errors">0</span>
+                            <span class="stat-label">Errores</span>
+                        </div>
+                    </div>
+
+                    <button class="start-exercise-btn" id="start-matching">Nueva Partida</button>
+                </div>
+
+                <!-- Sentence Ordering Exercise -->
+                <div class="exercise-content" id="sentence-content">
+                    <div class="sentence-intro">
+                        <p>Ordena las palabras para formar una oración correcta en chino.</p>
+                    </div>
+
+                    <div class="sentence-game">
+                        <div class="sentence-target" id="sentence-target">
+                            <p class="target-meaning" id="target-meaning">Haz clic en "Comenzar" para empezar</p>
+                        </div>
+
+                        <div class="sentence-answer" id="sentence-answer">
+                            <!-- User's arranged words appear here -->
+                        </div>
+
+                        <div class="sentence-words" id="sentence-words">
+                            <!-- Scrambled words appear here -->
+                        </div>
+
+                        <div class="sentence-feedback" id="sentence-feedback"></div>
+
+                        <div class="sentence-controls">
+                            <button class="sentence-btn" id="clear-sentence">Limpiar</button>
+                            <button class="sentence-btn primary" id="check-sentence">Verificar</button>
+                        </div>
+                    </div>
+
+                    <div class="sentence-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="sentence-correct">0</span>
+                            <span class="stat-label">Correctas</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="sentence-total">0</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
+
+                    <button class="start-exercise-btn" id="start-sentence">Comenzar</button>
+                </div>
+
+                <!-- Conversation Practice -->
+                <div class="exercise-content" id="conversation-content">
+                    <div class="conversation-intro">
+                        <p>Practica diálogos básicos del HSK1. Selecciona la respuesta correcta.</p>
+                    </div>
+
+                    <div class="conversation-area">
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Conversation messages appear here -->
+                        </div>
+
+                        <div class="response-options" id="response-options">
+                            <!-- Response options appear here -->
+                        </div>
+                    </div>
+
+                    <div class="conversation-progress">
+                        <span>Diálogo: <span id="conv-current">0</span>/<span id="conv-total">0</span></span>
+                    </div>
+
+                    <button class="start-exercise-btn" id="start-conversation">Nuevo Diálogo</button>
+                </div>
+            </section>
+
+            <!-- Study Techniques Section -->
+            <section id="techniques-section" class="section">
+                <div class="section-header">
+                    <h2>Técnicas de Estudio 学习方法</h2>
+                    <p class="section-subtitle">Métodos científicamente probados para aprender más rápido</p>
+                </div>
+
+                <!-- Pomodoro Timer -->
+                <div class="technique-card pomodoro-card">
+                    <div class="technique-header">
+                        <span class="technique-icon">🍅</span>
+                        <div>
+                            <h3>Técnica Pomodoro</h3>
+                            <p>Sesiones de estudio enfocado de 25 minutos</p>
+                        </div>
+                    </div>
+                    <div class="pomodoro-timer">
+                        <div class="timer-display" id="pomodoro-display">25:00</div>
+                        <div class="timer-status" id="pomodoro-status">Listo para empezar</div>
+                        <div class="pomodoro-progress">
+                            <div class="pomodoro-bar" id="pomodoro-bar"></div>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-btn start" id="pomodoro-start">▶ Iniciar</button>
+                            <button class="timer-btn pause" id="pomodoro-pause" disabled>⏸ Pausar</button>
+                            <button class="timer-btn reset" id="pomodoro-reset">↺ Reiniciar</button>
+                        </div>
+                        <div class="pomodoro-stats">
+                            <span>🍅 Pomodoros hoy: <strong id="pomodoro-count">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technique Cards Grid -->
+                <div class="techniques-grid">
+                    <!-- Tone Pairs Drill -->
+                    <div class="technique-card clickable" data-technique="tone-pairs">
+                        <span class="technique-icon">🎵</span>
+                        <h4>Pares de Tonos</h4>
+                        <p>Practica combinaciones de tonos difíciles</p>
+                        <span class="technique-badge">Pronunciación</span>
+                    </div>
+
+                    <!-- Shadowing -->
+                    <div class="technique-card clickable" data-technique="shadowing">
+                        <span class="technique-icon">🎧</span>
+                        <h4>Shadowing</h4>
+                        <p>Escucha y repite inmediatamente</p>
+                        <span class="technique-badge">Fluidez</span>
+                    </div>
+
+                    <!-- Error Review -->
+                    <div class="technique-card clickable" data-technique="error-review">
+                        <span class="technique-icon">🔄</span>
+                        <h4>Repaso de Errores</h4>
+                        <p>Practica tus palabras más difíciles</p>
+                        <span class="technique-badge">Memoria</span>
+                    </div>
+
+                    <!-- Speed Reading -->
+                    <div class="technique-card clickable" data-technique="speed-reading">
+                        <span class="technique-icon">⚡</span>
+                        <h4>Lectura Rápida</h4>
+                        <p>Mejora tu velocidad de reconocimiento</p>
+                        <span class="technique-badge">Velocidad</span>
+                    </div>
+
+                    <!-- Mnemonics -->
+                    <div class="technique-card clickable" data-technique="mnemonics">
+                        <span class="technique-icon">🧠</span>
+                        <h4>Mnemonics</h4>
+                        <p>Trucos de memoria para caracteres</p>
+                        <span class="technique-badge">Caracteres</span>
+                    </div>
+
+                    <!-- Active Recall -->
+                    <div class="technique-card clickable" data-technique="active-recall">
+                        <span class="technique-icon">💭</span>
+                        <h4>Recall Activo</h4>
+                        <p>Escribe el significado sin ver opciones</p>
+                        <span class="technique-badge">Profundo</span>
+                    </div>
+                </div>
+
+                <!-- Technique Practice Areas (hidden by default) -->
+
+                <!-- Tone Pairs Practice -->
+                <div class="technique-practice hidden" id="tone-pairs-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>🎵 Práctica de Pares de Tonos</h3>
+                    <p class="technique-desc">Los pares de tonos son combinaciones comunes que causan confusión. Escucha y selecciona el par correcto.</p>
+
+                    <div class="tone-pair-display">
+                        <div class="tone-pair-word" id="tone-pair-word">你好</div>
+                        <div class="tone-pair-pinyin" id="tone-pair-pinyin">nǐ hǎo</div>
+                        <button class="listen-tone-btn" id="listen-tone-pair">🔊 Escuchar</button>
+                    </div>
+
+                    <p class="tone-question">¿Qué combinación de tonos escuchas?</p>
+                    <div class="tone-pair-options" id="tone-pair-options">
+                        <button class="tone-pair-option" data-tones="3-3">3º + 3º</button>
+                        <button class="tone-pair-option" data-tones="2-3">2º + 3º</button>
+                        <button class="tone-pair-option" data-tones="3-4">3º + 4º</button>
+                        <button class="tone-pair-option" data-tones="2-4">2º + 4º</button>
+                    </div>
+
+                    <div class="technique-feedback" id="tone-pair-feedback"></div>
+                    <button class="next-technique-btn" id="next-tone-pair">Siguiente Par</button>
+
+                    <div class="technique-stats">
+                        <span>✓ <span id="tone-correct">0</span></span>
+                        <span>✗ <span id="tone-wrong">0</span></span>
+                        <span>🎯 <span id="tone-accuracy">0%</span></span>
+                    </div>
+                </div>
+
+                <!-- Shadowing Practice -->
+                <div class="technique-practice hidden" id="shadowing-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>🎧 Práctica de Shadowing</h3>
+                    <p class="technique-desc">Escucha la frase y repítela inmediatamente mientras aún suena. Esto mejora tu pronunciación y fluidez.</p>
+
+                    <div class="shadowing-display">
+                        <div class="shadowing-sentence" id="shadowing-sentence">我是学生。</div>
+                        <div class="shadowing-pinyin" id="shadowing-pinyin">Wǒ shì xuésheng.</div>
+                        <div class="shadowing-meaning" id="shadowing-meaning">Soy estudiante.</div>
+                    </div>
+
+                    <div class="shadowing-controls">
+                        <button class="shadowing-btn play" id="shadowing-play">
+                            <span class="btn-icon">▶</span>
+                            Escuchar
+                        </button>
+                        <button class="shadowing-btn slow" id="shadowing-slow">
+                            <span class="btn-icon">🐢</span>
+                            Lento
+                        </button>
+                        <button class="shadowing-btn record" id="shadowing-record">
+                            <span class="btn-icon">🎤</span>
+                            Grabar
+                        </button>
+                    </div>
+
+                    <div class="shadowing-feedback" id="shadowing-feedback"></div>
+
+                    <div class="shadowing-tips">
+                        <h4>Tips para Shadowing:</h4>
+                        <ul>
+                            <li>Empieza a hablar mientras escuchas, no después</li>
+                            <li>Imita el ritmo y la entonación</li>
+                            <li>Repite cada frase 3-5 veces</li>
+                        </ul>
+                    </div>
+
+                    <button class="next-technique-btn" id="next-shadowing">Siguiente Frase</button>
+                </div>
+
+                <!-- Error Review Practice -->
+                <div class="technique-practice hidden" id="error-review-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>🔄 Repaso de Errores</h3>
+                    <p class="technique-desc">Practica las palabras que más te cuestan. El sistema rastrea tus errores y te ayuda a mejorar.</p>
+
+                    <div class="error-stats-bar">
+                        <span>Palabras difíciles: <strong id="difficult-count">0</strong></span>
+                    </div>
+
+                    <div class="error-word-display" id="error-word-display">
+                        <div class="error-word-hanzi" id="error-hanzi">--</div>
+                        <div class="error-word-info">
+                            <span class="error-pinyin" id="error-pinyin">--</span>
+                            <span class="error-attempts">Intentos fallidos: <span id="error-attempts">0</span></span>
+                        </div>
+                    </div>
+
+                    <div class="error-question">¿Cuál es el significado?</div>
+                    <div class="error-options" id="error-options">
+                        <!-- Options generated by JS -->
+                    </div>
+
+                    <div class="technique-feedback" id="error-feedback"></div>
+                    <button class="next-technique-btn" id="next-error">Siguiente Palabra</button>
+
+                    <div class="no-errors-message hidden" id="no-errors">
+                        <span class="success-icon">🎉</span>
+                        <p>¡No tienes palabras difíciles! Sigue practicando para mantener tu progreso.</p>
+                    </div>
+                </div>
+
+                <!-- Speed Reading Practice -->
+                <div class="technique-practice hidden" id="speed-reading-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>⚡ Lectura Rápida</h3>
+                    <p class="technique-desc">Reconoce palabras lo más rápido posible. La velocidad es clave en el examen.</p>
+
+                    <div class="speed-settings">
+                        <label>Velocidad:</label>
+                        <select id="speed-level">
+                            <option value="3000">Principiante (3s)</option>
+                            <option value="2000" selected>Intermedio (2s)</option>
+                            <option value="1000">Avanzado (1s)</option>
+                            <option value="500">Experto (0.5s)</option>
+                        </select>
+                    </div>
+
+                    <div class="speed-display">
+                        <div class="speed-timer-bar">
+                            <div class="speed-timer-fill" id="speed-timer-fill"></div>
+                        </div>
+                        <div class="speed-word" id="speed-word">准备好</div>
+                    </div>
+
+                    <div class="speed-options" id="speed-options">
+                        <button class="speed-option">Opción 1</button>
+                        <button class="speed-option">Opción 2</button>
+                        <button class="speed-option">Opción 3</button>
+                        <button class="speed-option">Opción 4</button>
+                    </div>
+
+                    <div class="technique-feedback" id="speed-feedback"></div>
+
+                    <div class="speed-stats">
+                        <div class="speed-stat">
+                            <span class="stat-value" id="speed-correct">0</span>
+                            <span class="stat-label">Correctas</span>
+                        </div>
+                        <div class="speed-stat">
+                            <span class="stat-value" id="speed-streak">0</span>
+                            <span class="stat-label">Racha</span>
+                        </div>
+                        <div class="speed-stat">
+                            <span class="stat-value" id="speed-best">0</span>
+                            <span class="stat-label">Mejor Racha</span>
+                        </div>
+                    </div>
+
+                    <button class="start-technique-btn" id="start-speed">▶ Comenzar</button>
+                </div>
+
+                <!-- Mnemonics Practice -->
+                <div class="technique-practice hidden" id="mnemonics-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>🧠 Mnemonics para Caracteres</h3>
+                    <p class="technique-desc">Usa historias y asociaciones visuales para recordar caracteres.</p>
+
+                    <div class="mnemonic-display">
+                        <div class="mnemonic-char" id="mnemonic-char">好</div>
+                        <div class="mnemonic-info">
+                            <span class="mnemonic-pinyin" id="mnemonic-pinyin">hǎo</span>
+                            <span class="mnemonic-meaning" id="mnemonic-meaning">bueno</span>
+                        </div>
+                    </div>
+
+                    <div class="mnemonic-breakdown">
+                        <h4>Análisis del carácter:</h4>
+                        <div class="components" id="mnemonic-components">
+                            <div class="component">
+                                <span class="comp-char">女</span>
+                                <span class="comp-meaning">mujer</span>
+                            </div>
+                            <span class="comp-plus">+</span>
+                            <div class="component">
+                                <span class="comp-char">子</span>
+                                <span class="comp-meaning">hijo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mnemonic-story" id="mnemonic-story">
+                        <h4>💡 Historia para recordar:</h4>
+                        <p>"Una <strong>mujer</strong> (女) con su <strong>hijo</strong> (子) = algo <strong>bueno</strong> (好)"</p>
+                    </div>
+
+                    <div class="mnemonic-test">
+                        <p>Practica: ¿Qué significa este carácter?</p>
+                        <div class="mnemonic-options" id="mnemonic-options">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="technique-feedback" id="mnemonic-feedback"></div>
+                    <button class="next-technique-btn" id="next-mnemonic">Siguiente Carácter</button>
+                </div>
+
+                <!-- Active Recall Practice -->
+                <div class="technique-practice hidden" id="active-recall-practice">
+                    <button class="back-technique-btn" onclick="app.closeTechniquePractice()">← Volver</button>
+                    <h3>💭 Recall Activo</h3>
+                    <p class="technique-desc">Escribe la respuesta sin ver opciones. Es más difícil pero más efectivo para la memoria a largo plazo.</p>
+
+                    <div class="recall-display">
+                        <div class="recall-prompt">Escribe el pinyin de:</div>
+                        <div class="recall-word" id="recall-word">学生</div>
+                        <div class="recall-hint" id="recall-hint">Pista: estudiante</div>
+                    </div>
+
+                    <div class="recall-input-area">
+                        <input type="text" id="recall-input" placeholder="Escribe el pinyin aquí..." autocomplete="off" autocapitalize="off">
+                        <button class="recall-submit" id="recall-submit">Verificar</button>
+                    </div>
+
+                    <div class="recall-result hidden" id="recall-result">
+                        <div class="correct-answer">
+                            <span>Respuesta correcta:</span>
+                            <strong id="recall-correct-answer">xuésheng</strong>
+                        </div>
+                    </div>
+
+                    <div class="technique-feedback" id="recall-feedback"></div>
+
+                    <div class="recall-mode-toggle">
+                        <span>Modo:</span>
+                        <button class="recall-mode active" data-mode="pinyin">Pinyin</button>
+                        <button class="recall-mode" data-mode="meaning">Significado</button>
+                        <button class="recall-mode" data-mode="hanzi">Caracteres</button>
+                    </div>
+
+                    <button class="next-technique-btn" id="next-recall">Siguiente Palabra</button>
+                </div>
+
+                <!-- Study Tips Section -->
+                <div class="study-tips-section">
+                    <h3>💡 Consejos para el Examen HSK1</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <span class="tip-icon">📅</span>
+                            <h4>Estudia cada día</h4>
+                            <p>20-30 minutos diarios es mejor que 3 horas una vez por semana</p>
+                        </div>
+                        <div class="tip-card">
+                            <span class="tip-icon">👂</span>
+                            <h4>Escucha mucho</h4>
+                            <p>El 50% del examen es comprensión auditiva</p>
+                        </div>
+                        <div class="tip-card">
+                            <span class="tip-icon">🔁</span>
+                            <h4>Repite errores</h4>
+                            <p>Practica más las palabras que te cuestan</p>
+                        </div>
+                        <div class="tip-card">
+                            <span class="tip-icon">⏱️</span>
+                            <h4>Practica con tiempo</h4>
+                            <p>Acostúmbrate a la presión del reloj</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Listening Comprehension Section -->
+            <section id="listening-section" class="section">
+                <div class="section-header">
+                    <h2>Comprensión Auditiva 听力</h2>
+                    <p>Practica tu comprensión auditiva estilo examen HSK</p>
+                </div>
+
+                <div class="listening-modes">
+                    <button class="listening-mode-btn active" data-type="word-meaning">Palabras</button>
+                    <button class="listening-mode-btn" data-type="number">Números</button>
+                    <button class="listening-mode-btn" data-type="sentence">Oraciones</button>
+                    <button class="listening-mode-btn" data-type="dialogue">Diálogos</button>
+                    <button class="listening-mode-btn" data-type="dictation">Dictado</button>
+                </div>
+
+                <div class="listening-start-panel" id="listening-start">
+                    <div class="start-info">
+                        <h3>Ejercicio de Escucha</h3>
+                        <p>Escucharás audio en chino y deberás seleccionar la respuesta correcta.</p>
+                        <div class="exercise-config">
+                            <label>Número de preguntas:</label>
+                            <select id="listening-count">
+                                <option value="5">5 preguntas</option>
+                                <option value="10" selected>10 preguntas</option>
+                                <option value="15">15 preguntas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-start-listening" onclick="app.startListeningExercise()">
+                        Comenzar Ejercicio
+                    </button>
+                </div>
+
+                <div class="listening-exercise-panel" id="listening-exercise" style="display: none;">
+                    <div class="listening-progress">
+                        <span id="listening-current">1</span> / <span id="listening-total">10</span>
+                    </div>
+
+                    <div class="listening-card">
+                        <button class="btn-play-audio" id="btn-play-listening" onclick="app.playListeningAudio()">
+                            <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <span>Reproducir Audio</span>
+                        </button>
+
+                        <div class="listening-question" id="listening-question"></div>
+
+                        <div class="listening-options" id="listening-options"></div>
+                    </div>
+
+                    <div class="listening-feedback" id="listening-feedback"></div>
+                </div>
+
+                <div class="listening-results-panel" id="listening-results" style="display: none;">
+                    <h3>Resultados</h3>
+                    <div class="results-score">
+                        <span class="score-number" id="listening-score">0</span>
+                        <span class="score-total">/ <span id="listening-score-total">10</span></span>
+                    </div>
+                    <div class="results-percentage" id="listening-percentage">0%</div>
+                    <div class="results-message" id="listening-message"></div>
+                    <button class="btn-restart" onclick="app.restartListening()">Practicar de Nuevo</button>
+                </div>
+            </section>
+
+            <!-- Reading Comprehension Section -->
+            <section id="reading-section" class="section">
+                <div class="section-header">
+                    <h2>Comprensión Lectora 阅读</h2>
+                    <p>Lee textos en chino y responde preguntas de comprensión</p>
+                </div>
+
+                <div class="reading-list" id="reading-list">
+                    <!-- Reading texts will be loaded here -->
+                </div>
+
+                <div class="reading-exercise-panel" id="reading-exercise" style="display: none;">
+                    <div class="reading-text-card">
+                        <h3 id="reading-title"></h3>
+                        <div class="reading-text" id="reading-text"></div>
+                        <button class="btn-show-pinyin" onclick="app.toggleReadingPinyin()">
+                            Mostrar/Ocultar Pinyin
+                        </button>
+                        <div class="reading-pinyin" id="reading-pinyin" style="display: none;"></div>
+                        <div class="reading-translation" id="reading-translation" style="display: none;"></div>
+                        <button class="btn-show-translation" onclick="app.toggleReadingTranslation()">
+                            Mostrar/Ocultar Traducción
+                        </button>
+                        <button class="btn-listen-text" onclick="app.readTextAloud()">
+                            Escuchar Texto
+                        </button>
+                    </div>
+
+                    <div class="reading-questions" id="reading-questions">
+                        <h4>Preguntas de Comprensión</h4>
+                        <div class="question-container" id="reading-question-container"></div>
+                    </div>
+
+                    <div class="reading-results" id="reading-results" style="display: none;">
+                        <h4>Resultados</h4>
+                        <div class="score-display">
+                            <span id="reading-score">0</span> / <span id="reading-total">0</span> correctas
+                        </div>
+                        <button class="btn-back" onclick="app.backToReadingList()">Volver a la Lista</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section id="statistics-section" class="section">
+                <div class="section-header">
+                    <h2>Estadísticas y Progreso 统计</h2>
+                    <p>Analiza tu progreso y planifica tu estudio</p>
+                </div>
+
+                <!-- Weekly Overview -->
+                <div class="stats-card">
+                    <h3>Esta Semana</h3>
+                    <div class="week-stats" id="week-stats">
+                        <div class="week-chart" id="week-chart"></div>
+                    </div>
+                </div>
+
+                <!-- SRS Calendar -->
+                <div class="stats-card">
+                    <h3>Calendario de Repaso</h3>
+                    <div id="srs-calendar-container"></div>
+                    <div class="srs-week-container" id="srs-week-container"></div>
+                </div>
+
+                <!-- Monthly Stats -->
+                <div class="stats-card">
+                    <h3>Resumen del Mes</h3>
+                    <div class="monthly-stats" id="monthly-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="month-sessions">0</span>
+                            <span class="stat-label">Sesiones</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="month-words">0</span>
+                            <span class="stat-label">Palabras</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="month-time">0</span>
+                            <span class="stat-label">Minutos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="month-accuracy">0%</span>
+                            <span class="stat-label">Precisión</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficult Words -->
+                <div class="stats-card">
+                    <h3>Palabras Difíciles</h3>
+                    <div class="difficult-words" id="difficult-words">
+                        <p class="empty-message">Sigue practicando para identificar palabras difíciles</p>
+                    </div>
+                </div>
+
+                <!-- Similar Characters -->
+                <div class="stats-card">
+                    <h3>Caracteres Similares</h3>
+                    <p>Aprende a distinguir caracteres que se parecen</p>
+                    <div class="similar-chars-grid" id="similar-chars-grid"></div>
+                </div>
+
+                <!-- Tone Progress -->
+                <div class="stats-card">
+                    <h3>Progreso por Tonos</h3>
+                    <div class="tone-progress" id="tone-progress">
+                        <div class="tone-bar-item">
+                            <span class="tone-label t1">1º Tono</span>
+                            <div class="tone-bar-container"><div class="tone-bar t1" id="tone1-bar"></div></div>
+                            <span class="tone-percent" id="tone1-percent">0%</span>
+                        </div>
+                        <div class="tone-bar-item">
+                            <span class="tone-label t2">2º Tono</span>
+                            <div class="tone-bar-container"><div class="tone-bar t2" id="tone2-bar"></div></div>
+                            <span class="tone-percent" id="tone2-percent">0%</span>
+                        </div>
+                        <div class="tone-bar-item">
+                            <span class="tone-label t3">3º Tono</span>
+                            <div class="tone-bar-container"><div class="tone-bar t3" id="tone3-bar"></div></div>
+                            <span class="tone-percent" id="tone3-percent">0%</span>
+                        </div>
+                        <div class="tone-bar-item">
+                            <span class="tone-label t4">4º Tono</span>
+                            <div class="tone-bar-container"><div class="tone-bar t4" id="tone4-bar"></div></div>
+                            <span class="tone-percent" id="tone4-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completion Estimate -->
+                <div class="stats-card">
+                    <h3>Estimación de Completado</h3>
+                    <div class="completion-estimate" id="completion-estimate">
+                        <p>Basado en tu ritmo actual...</p>
+                        <div class="estimate-info">
+                            <span class="estimate-days" id="estimate-days">--</span>
+                            <span class="estimate-label">días restantes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export/Import -->
+                <div class="stats-card">
+                    <h3>Exportar / Importar Datos</h3>
+                    <div class="backup-buttons">
+                        <button class="btn-export" onclick="BackupModule.exportAsJSON()">
+                            Exportar Backup (JSON)
+                        </button>
+                        <button class="btn-export" onclick="BackupModule.exportAsCSV()">
+                            Exportar CSV
+                        </button>
+                        <button class="btn-export" onclick="BackupModule.exportForAnki()">
+                            Exportar para Anki
+                        </button>
+                        <button class="btn-export" onclick="BackupModule.generatePrintableFlashcards()">
+                            Flashcards Imprimibles
+                        </button>
+                        <button class="btn-import" onclick="BackupModule.createImportDialog()">
+                            Importar Backup
+                        </button>
+                    </div>
+                    <div class="data-size" id="data-size"></div>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div class="stats-card">
+                    <h3>Notificaciones</h3>
+                    <div id="notification-settings"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Session Summary Modal -->
+        <div id="session-modal" class="modal">
+            <div class="modal-content session-modal">
+                <h2>Resumen de Sesión</h2>
+                <div class="session-stats">
+                    <div class="session-stat">
+                        <span class="session-value" id="session-duration">0</span>
+                        <span class="session-label">minutos</span>
+                    </div>
+                    <div class="session-stat">
+                        <span class="session-value" id="session-words">0</span>
+                        <span class="session-label">palabras</span>
+                    </div>
+                    <div class="session-stat">
+                        <span class="session-value" id="session-accuracy">0%</span>
+                        <span class="session-label">precisión</span>
+                    </div>
+                    <div class="session-stat">
+                        <span class="session-value" id="session-xp">+0</span>
+                        <span class="session-label">XP</span>
+                    </div>
+                </div>
+                <div class="session-difficult" id="session-difficult"></div>
+                <button class="btn-close-session" onclick="app.closeSessionModal()">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Progress Modal - Advanced Statistics Panel -->
+        <div id="progress-modal" class="modal">
+            <div class="modal-content stats-modal">
+                <button class="modal-close" id="close-progress-modal">&times;</button>
+                <h2>📊 Estadísticas Avanzadas</h2>
+
+                <!-- HSK1 Readiness Score -->
+                <div class="readiness-section">
+                    <h3>Preparación para HSK1</h3>
+                    <div class="readiness-meter">
+                        <div class="readiness-score" id="readiness-score">0%</div>
+                        <div class="readiness-bar-container">
+                            <div class="readiness-bar" id="readiness-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="readiness-status" id="readiness-status">Comenzando</div>
+                    </div>
+                </div>
+
+                <!-- Weekly Activity Graph -->
+                <div class="activity-section">
+                    <h3>Actividad Semanal</h3>
+                    <div class="weekly-graph" id="weekly-graph">
+                        <div class="day-bar" data-day="L">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">L</span>
+                        </div>
+                        <div class="day-bar" data-day="M">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">M</span>
+                        </div>
+                        <div class="day-bar" data-day="X">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">X</span>
+                        </div>
+                        <div class="day-bar" data-day="J">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">J</span>
+                        </div>
+                        <div class="day-bar" data-day="V">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">V</span>
+                        </div>
+                        <div class="day-bar" data-day="S">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">S</span>
+                        </div>
+                        <div class="day-bar" data-day="D">
+                            <div class="bar-fill" style="height: 0%"></div>
+                            <span class="day-label">D</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-value" id="stat-vocab">0/150</div>
+                        <div class="stat-name">Vocabulario</div>
+                        <div class="stat-progress">
+                            <div class="stat-bar" id="vocab-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✏️</div>
+                        <div class="stat-value" id="stat-exercises">0</div>
+                        <div class="stat-name">Ejercicios</div>
+                        <div class="stat-detail">completados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="stat-accuracy">0%</div>
+                        <div class="stat-name">Precisión</div>
+                        <div class="stat-detail">respuestas correctas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value" id="stat-time">0h</div>
+                        <div class="stat-name">Tiempo Total</div>
+                        <div class="stat-detail">de estudio</div>
+                    </div>
+                </div>
+
+                <!-- Performance by Category -->
+                <div class="performance-section">
+                    <h3>Rendimiento por Categoría</h3>
+                    <div class="performance-bars">
+                        <div class="perf-item">
+                            <span class="perf-label">Lectura</span>
+                            <div class="perf-bar-container">
+                                <div class="perf-bar" id="perf-reading" style="width: 0%"></div>
+                            </div>
+                            <span class="perf-value" id="perf-reading-val">0%</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">Auditiva</span>
+                            <div class="perf-bar-container">
+                                <div class="perf-bar listening" id="perf-listening" style="width: 0%"></div>
+                            </div>
+                            <span class="perf-value" id="perf-listening-val">0%</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">Pinyin</span>
+                            <div class="perf-bar-container">
+                                <div class="perf-bar pinyin" id="perf-pinyin" style="width: 0%"></div>
+                            </div>
+                            <span class="perf-value" id="perf-pinyin-val">0%</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">Gramática</span>
+                            <div class="perf-bar-container">
+                                <div class="perf-bar grammar" id="perf-grammar" style="width: 0%"></div>
+                            </div>
+                            <span class="perf-value" id="perf-grammar-val">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exam History -->
+                <div class="exam-history-section">
+                    <h3>Historial de Exámenes</h3>
+                    <div class="exam-stats-row">
+                        <div class="exam-stat">
+                            <span class="exam-stat-value" id="best-score">--</span>
+                            <span class="exam-stat-label">Mejor Puntuación</span>
+                        </div>
+                        <div class="exam-stat">
+                            <span class="exam-stat-value" id="exams-taken">0</span>
+                            <span class="exam-stat-label">Exámenes</span>
+                        </div>
+                        <div class="exam-stat">
+                            <span class="exam-stat-value" id="pass-rate">0%</span>
+                            <span class="exam-stat-label">Aprobados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Streak & XP Summary -->
+                <div class="summary-section">
+                    <div class="summary-item streak">
+                        <span class="summary-icon">🔥</span>
+                        <span class="summary-value" id="modal-streak">0</span>
+                        <span class="summary-label">días de racha</span>
+                    </div>
+                    <div class="summary-item xp">
+                        <span class="summary-icon">⭐</span>
+                        <span class="summary-value" id="modal-total-xp">0</span>
+                        <span class="summary-label">XP total</span>
+                    </div>
+                    <div class="summary-item level">
+                        <span class="summary-icon">🏅</span>
+                        <span class="summary-value" id="modal-level">1</span>
+                        <span class="summary-label">nivel actual</span>
+                    </div>
+                </div>
+
+                <button class="reset-progress-btn" id="reset-progress">⚠️ Reiniciar Todo el Progreso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Módulos HSK (carga modular y escalable) -->
+    <script src="data/hsk-config.js"></script>
+    <script src="modules/dictionary.js"></script>
+    <script src="modules/sentences.js"></script>
+    <script src="modules/speech.js"></script>
+    <script src="modules/vocabulary.js"></script>
+    <!-- Módulos adicionales -->
+    <script src="modules/statistics.js"></script>
+    <script src="modules/listening.js"></script>
+    <script src="modules/reading.js"></script>
+    <script src="modules/radicals.js"></script>
+    <script src="modules/calendar.js"></script>
+    <script src="modules/backup.js"></script>
+    <script src="modules/notifications.js"></script>
+
+    <!-- Error Toast para notificaciones de error -->
+    <div id="error-toast" class="error-toast" role="alert" aria-live="polite"></div>
+
+    <!-- Skip to content link para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- App principal -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Service Worker para uso Offline -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('✓ App disponible offline'))
+                    .catch(err => console.log('SW:', err));
+            });
+        }
+    </script>
+</body>
+</html>
