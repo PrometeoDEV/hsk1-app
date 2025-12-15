@@ -234,7 +234,7 @@ const RADICALS = [
     { char: "宀", name: "宝盖头", meaning: "Techo/Casa", examples: ["家", "字", "学", "客"] }
 ];
 
-// ===== Puntos gramaticales =====
+// ===== Puntos gramaticales con ejercicios =====
 const GRAMMAR_POINTS = [
     {
         id: "shi",
@@ -245,6 +245,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我是学生。", py: "Wǒ shì xuésheng.", es: "Soy estudiante." },
             { cn: "她不是老师。", py: "Tā bú shì lǎoshī.", es: "Ella no es profesora." }
+        ],
+        exercises: [
+            { q: "Completa: 我___学生。(Soy estudiante)", opts: ["是", "有", "在", "的"], ans: 0 },
+            { q: "Traduce: 'Él es médico'", opts: ["他是医生", "他有医生", "他在医生", "他的医生"], ans: 0 },
+            { q: "Completa: 她___老师。(Ella no es profesora)", opts: ["是", "不是", "没有", "不"], ans: 1 },
+            { q: "¿Cuál es correcta?", opts: ["我是中国人", "我是中国", "我中国人是", "是我中国人"], ans: 0 }
         ]
     },
     {
@@ -255,6 +261,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "你是老师吗？", py: "Nǐ shì lǎoshī ma?", es: "¿Eres profesor?" },
             { cn: "他是中国人吗？", py: "Tā shì Zhōngguórén ma?", es: "¿Es él chino?" }
+        ],
+        exercises: [
+            { q: "Convierte en pregunta: 你是学生", opts: ["你是学生吗？", "你是学生呢？", "你是学生的？", "你是学生了？"], ans: 0 },
+            { q: "Traduce: '¿Eres chino?'", opts: ["你是中国人吗？", "你中国人吗？", "是你中国人吗？", "你是中国吗？"], ans: 0 },
+            { q: "¿Dónde va 吗?", opts: ["Al final", "Al inicio", "Antes del verbo", "Después del sujeto"], ans: 0 },
+            { q: "Completa: 他是医生___？", opts: ["吗", "呢", "吧", "了"], ans: 0 }
         ]
     },
     {
@@ -265,6 +277,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我的书", py: "wǒ de shū", es: "mi libro" },
             { cn: "她的老师", py: "tā de lǎoshī", es: "su profesor (de ella)" }
+        ],
+        exercises: [
+            { q: "Traduce: 'mi libro'", opts: ["我的书", "我书的", "的我书", "书我的"], ans: 0 },
+            { q: "Completa: 这是他___电脑。(su computadora)", opts: ["的", "是", "有", "在"], ans: 0 },
+            { q: "¿Cuál significa 'su amigo (de ella)'?", opts: ["他的朋友", "她的朋友", "我的朋友", "你的朋友"], ans: 1 },
+            { q: "Ordena: 老师 / 的 / 我", opts: ["我的老师", "老师我的", "的我老师", "老师的我"], ans: 0 }
         ]
     },
     {
@@ -276,6 +294,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我有三个朋友。", py: "Wǒ yǒu sān gè péngyou.", es: "Tengo tres amigos." },
             { cn: "桌子上有一本书。", py: "Zhuōzi shàng yǒu yì běn shū.", es: "Hay un libro en la mesa." }
+        ],
+        exercises: [
+            { q: "Traduce: 'Tengo un hermano'", opts: ["我有一个弟弟", "我是一个弟弟", "我在一个弟弟", "我的一个弟弟"], ans: 0 },
+            { q: "¿Cómo se niega 有?", opts: ["不有", "没有", "无有", "非有"], ans: 1 },
+            { q: "Completa: 桌子上___一本书。(Hay un libro)", opts: ["是", "有", "在", "的"], ans: 1 },
+            { q: "Traduce: 'No tengo dinero'", opts: ["我不有钱", "我没有钱", "我有不钱", "我钱没有"], ans: 1 }
         ]
     },
     {
@@ -287,6 +311,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我会说汉语。", py: "Wǒ huì shuō Hànyǔ.", es: "Sé hablar chino." },
             { cn: "明天会下雨。", py: "Míngtiān huì xià yǔ.", es: "Mañana va a llover." }
+        ],
+        exercises: [
+            { q: "Traduce: 'Sé hablar chino'", opts: ["我会说汉语", "我说汉语", "我能说汉语", "我想说汉语"], ans: 0 },
+            { q: "¿Qué indica 会?", opts: ["Habilidad aprendida", "Obligación", "Posesión", "Ubicación"], ans: 0 },
+            { q: "Completa: 明天___下雨。(Va a llover)", opts: ["是", "有", "会", "在"], ans: 2 },
+            { q: "Traduce: 'No sé escribir'", opts: ["我不会写", "我没会写", "我会不写", "我不写会"], ans: 0 }
         ]
     },
     {
@@ -297,6 +327,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我想喝茶。", py: "Wǒ xiǎng hē chá.", es: "Quiero beber té." },
             { cn: "你想吃什么？", py: "Nǐ xiǎng chī shénme?", es: "¿Qué quieres comer?" }
+        ],
+        exercises: [
+            { q: "Traduce: 'Quiero beber té'", opts: ["我想喝茶", "我喝想茶", "我茶想喝", "想我喝茶"], ans: 0 },
+            { q: "Completa: 你___吃什么？(¿Qué quieres comer?)", opts: ["想", "会", "能", "要"], ans: 0 },
+            { q: "¿Qué expresa 想?", opts: ["Deseo/querer", "Habilidad", "Obligación", "Posesión"], ans: 0 },
+            { q: "Traduce: 'No quiero ir'", opts: ["我不想去", "我想不去", "我没想去", "不我想去"], ans: 0 }
         ]
     },
     {
@@ -308,6 +344,12 @@ const GRAMMAR_POINTS = [
             { cn: "他在医院。", py: "Tā zài yīyuàn.", es: "Él está en el hospital." },
             { cn: "我在家看书。", py: "Wǒ zài jiā kàn shū.", es: "Leo en casa." },
             { cn: "他在学做菜呢。", py: "Tā zài xué zuò cài ne.", es: "Está aprendiendo a cocinar." }
+        ],
+        exercises: [
+            { q: "Traduce: 'Estoy en casa'", opts: ["我在家", "我是家", "我有家", "我的家"], ans: 0 },
+            { q: "¿Cómo expresas acción en progreso?", opts: ["在 + V + 呢", "是 + V", "有 + V", "会 + V"], ans: 0 },
+            { q: "Completa: 他___医院工作。(Trabaja en el hospital)", opts: ["是", "有", "在", "的"], ans: 2 },
+            { q: "Traduce: 'Está durmiendo'", opts: ["他在睡觉呢", "他睡觉在呢", "他呢在睡觉", "在他睡觉呢"], ans: 0 }
         ]
     },
     {
@@ -318,6 +360,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "她20岁了。", py: "Tā èrshí suì le.", es: "Ella ya tiene 20 años." },
             { cn: "她买了很多衣服。", py: "Tā mǎi le hěn duō yīfu.", es: "Ella compró mucha ropa." }
+        ],
+        exercises: [
+            { q: "Traduce: 'Ya comí'", opts: ["我吃了", "我了吃", "我吃的", "吃我了"], ans: 0 },
+            { q: "¿Qué indica 了 después del verbo?", opts: ["Acción completada", "Acción futura", "Pregunta", "Negación"], ans: 0 },
+            { q: "Completa: 她买___很多衣服。(Ella compró)", opts: ["了", "的", "呢", "吗"], ans: 0 },
+            { q: "Traduce: 'Ella ya tiene 20 años'", opts: ["她20岁了", "她了20岁", "她是20岁", "她有20岁"], ans: 0 }
         ]
     },
     {
@@ -328,6 +376,12 @@ const GRAMMAR_POINTS = [
         examples: [
             { cn: "我是坐飞机来的。", py: "Wǒ shì zuò fēijī lái de.", es: "Vine en avión." },
             { cn: "你是什么时候来的？", py: "Nǐ shì shénme shíhou lái de?", es: "¿Cuándo viniste?" }
+        ],
+        exercises: [
+            { q: "¿Para qué se usa 是...的?", opts: ["Enfatizar tiempo/modo/lugar", "Hacer preguntas", "Negar", "Expresar posesión"], ans: 0 },
+            { q: "Traduce: 'Vine en avión'", opts: ["我是坐飞机来的", "我坐飞机来", "我来坐飞机的", "是我坐飞机来"], ans: 0 },
+            { q: "Completa: 你是什么时候来___？", opts: ["的", "了", "吗", "呢"], ans: 0 },
+            { q: "Traduce: '¿Cómo viniste?'", opts: ["你是怎么来的？", "你怎么来？", "你来怎么的？", "是你怎么来的？"], ans: 0 }
         ]
     }
 ];
@@ -447,6 +501,989 @@ const HANZI_PRACTICE = [
     { hanzi: "足", pinyin: "zú", meaning: "pie", strokes: 7 }
 ];
 
+// ===== Contenido didáctico completo de las lecciones =====
+const LESSONS_CONTENT = [
+    // ===== LECCIÓN 1: 你好 - Saludos básicos =====
+    {
+        num: 1,
+        title: "你好",
+        subtitle: "Nǐ hǎo - Hola",
+        topic: "Saludos básicos",
+        introduction: "En esta primera lección aprenderás los saludos más importantes en chino. Los saludos son fundamentales para cualquier interacción social en China. 你好 (nǐ hǎo) es el saludo más común y significa literalmente 'tú bueno'.",
+        objectives: [
+            "Saludar en chino de forma básica y formal",
+            "Disculparse y responder a disculpas",
+            "Usar pronombres básicos (tú, usted, ustedes)"
+        ],
+        dialogue: {
+            title: "En la calle",
+            lines: [
+                { speaker: "A", cn: "你好！", py: "Nǐ hǎo!", es: "¡Hola!" },
+                { speaker: "B", cn: "你好！", py: "Nǐ hǎo!", es: "¡Hola!" },
+                { speaker: "A", cn: "对不起！", py: "Duìbuqǐ!", es: "¡Lo siento!" },
+                { speaker: "B", cn: "没关系。", py: "Méi guānxi.", es: "No importa." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "你好 vs 您好",
+                explanation: "你好 es informal (para amigos, gente de tu edad). 您好 es formal (para mayores, jefes, desconocidos)."
+            },
+            {
+                point: "Plurales con 们",
+                explanation: "Añade 们 a los pronombres para hacerlos plurales: 你 → 你们 (ustedes)"
+            }
+        ],
+        culturalNote: "En China, es común saludar preguntando '你吃了吗？' (¿Ya comiste?). No es una invitación a comer, solo un saludo amable que muestra preocupación.",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Hola' en chino?",
+                options: ["你好", "谢谢", "再见", "对不起"],
+                answer: 0
+            },
+            {
+                type: "translate",
+                question: "¿Cuál es la forma FORMAL de saludar?",
+                options: ["你好", "您好", "你们好", "她好"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "A: 对不起！ B: ___",
+                options: ["没关系", "你好", "谢谢", "再见"],
+                answer: 0
+            },
+            {
+                type: "audio",
+                question: "Escucha y selecciona lo que significa 'Lo siento'",
+                audioText: "对不起",
+                options: ["你好", "对不起", "谢谢", "再见"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 2: 谢谢你 - Expresiones de cortesía =====
+    {
+        num: 2,
+        title: "谢谢你",
+        subtitle: "Xièxie nǐ - Gracias",
+        topic: "Expresiones de cortesía",
+        introduction: "Las expresiones de cortesía son esenciales en la cultura china. En esta lección aprenderás a dar las gracias, responder cuando te agradecen, y despedirte correctamente.",
+        objectives: [
+            "Agradecer de diferentes formas",
+            "Responder cuando te dan las gracias",
+            "Despedirse apropiadamente",
+            "Usar la negación básica 不"
+        ],
+        dialogue: {
+            title: "En una tienda",
+            lines: [
+                { speaker: "Cliente", cn: "谢谢！", py: "Xièxie!", es: "¡Gracias!" },
+                { speaker: "Vendedor", cn: "不客气。", py: "Bú kèqi.", es: "De nada." },
+                { speaker: "Cliente", cn: "再见！", py: "Zàijiàn!", es: "¡Adiós!" },
+                { speaker: "Vendedor", cn: "再见！", py: "Zàijiàn!", es: "¡Adiós!" }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "谢谢 vs 谢谢你",
+                explanation: "谢谢 es más casual. 谢谢你 (gracias a ti) es más personal y enfático."
+            },
+            {
+                point: "Negación con 不",
+                explanation: "不 se usa para negar verbos y adjetivos. Cambia a tono 2 (bú) antes de tono 4."
+            }
+        ],
+        culturalNote: "En China, a veces rechazar amablemente es parte de la cortesía. Si alguien te ofrece algo, es educado rechazar una o dos veces antes de aceptar.",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo respondes cuando alguien te da las gracias?",
+                options: ["谢谢", "不客气", "对不起", "你好"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Adiós' en chino?",
+                options: ["你好", "谢谢", "再见", "不客气"],
+                answer: 2
+            },
+            {
+                type: "complete",
+                question: "A: 谢谢你！ B: ___",
+                options: ["再见", "不客气", "对不起", "你好"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 不?",
+                options: ["sí", "no (negación)", "gracias", "hola"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 3: 你叫什么名字 - Presentaciones =====
+    {
+        num: 3,
+        title: "你叫什么名字",
+        subtitle: "Nǐ jiào shénme míngzi - ¿Cómo te llamas?",
+        topic: "Presentaciones",
+        introduction: "Aprende a presentarte, preguntar nombres, y hablar sobre nacionalidades y profesiones. El verbo 是 (ser) y la partícula interrogativa 吗 son fundamentales en esta lección.",
+        objectives: [
+            "Preguntar y decir tu nombre",
+            "Usar el verbo 是 (ser/estar)",
+            "Formar preguntas con 吗",
+            "Hablar de nacionalidades y profesiones"
+        ],
+        dialogue: {
+            title: "Conociendo a alguien nuevo",
+            lines: [
+                { speaker: "A", cn: "你好！你叫什么名字？", py: "Nǐ hǎo! Nǐ jiào shénme míngzi?", es: "¡Hola! ¿Cómo te llamas?" },
+                { speaker: "B", cn: "我叫王明。你呢？", py: "Wǒ jiào Wáng Míng. Nǐ ne?", es: "Me llamo Wang Ming. ¿Y tú?" },
+                { speaker: "A", cn: "我叫李华。你是老师吗？", py: "Wǒ jiào Lǐ Huá. Nǐ shì lǎoshī ma?", es: "Me llamo Li Hua. ¿Eres profesor?" },
+                { speaker: "B", cn: "不，我是学生。", py: "Bù, wǒ shì xuésheng.", es: "No, soy estudiante." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "Estructura con 是",
+                explanation: "Sujeto + 是 + Sustantivo. Negativo: 不是. Ejemplo: 我是学生 (Soy estudiante)."
+            },
+            {
+                point: "Preguntas con 吗",
+                explanation: "Añade 吗 al final de una oración afirmativa para convertirla en pregunta. 你是老师 → 你是老师吗？"
+            },
+            {
+                point: "什么 para preguntar 'qué'",
+                explanation: "什么 significa 'qué' y se coloca donde iría la respuesta: 你叫什么名字？→ 我叫[nombre]。"
+            }
+        ],
+        culturalNote: "En China, el apellido va primero. '王明' tiene apellido '王' (Wáng) y nombre '明' (Míng). Los nombres chinos suelen tener significados especiales.",
+        grammar: "shi",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Cómo te llamas?'",
+                options: ["你好吗？", "你叫什么名字？", "你是谁？", "你是学生吗？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "我___学生。(Soy estudiante)",
+                options: ["是", "不", "叫", "吗"],
+                answer: 0
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'No soy profesor'?",
+                options: ["我是老师", "我不是老师", "你是老师吗", "他是老师"],
+                answer: 1
+            },
+            {
+                type: "order",
+                question: "Ordena: 什么 / 叫 / 名字 / 你",
+                options: ["你叫什么名字", "什么你叫名字", "名字你叫什么", "叫你什么名字"],
+                answer: 0
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 4: 她是我的汉语老师 - Posesión y relaciones =====
+    {
+        num: 4,
+        title: "她是我的汉语老师",
+        subtitle: "Tā shì wǒ de Hànyǔ lǎoshī - Ella es mi profesora de chino",
+        topic: "Posesión y relaciones",
+        introduction: "Aprende a expresar posesión con la partícula 的, distinguir entre él/ella, preguntar 'quién' y hablar de relaciones personales.",
+        objectives: [
+            "Usar la partícula posesiva 的",
+            "Distinguir 他 (él) y 她 (ella)",
+            "Preguntar con 谁 (quién)",
+            "Hablar de relaciones (amigo, compañero)"
+        ],
+        dialogue: {
+            title: "Presentando a alguien",
+            lines: [
+                { speaker: "A", cn: "她是谁？", py: "Tā shì shéi?", es: "¿Quién es ella?" },
+                { speaker: "B", cn: "她是我的汉语老师。", py: "Tā shì wǒ de Hànyǔ lǎoshī.", es: "Ella es mi profesora de chino." },
+                { speaker: "A", cn: "他呢？他是你的朋友吗？", py: "Tā ne? Tā shì nǐ de péngyou ma?", es: "¿Y él? ¿Es tu amigo?" },
+                { speaker: "B", cn: "对，他是我的同学。", py: "Duì, tā shì wǒ de tóngxué.", es: "Sí, él es mi compañero de clase." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "Partícula 的",
+                explanation: "Indica posesión: 我的 (mi/mío), 你的 (tu/tuyo), 他的 (su/suyo de él). Se coloca entre poseedor y poseído."
+            },
+            {
+                point: "他 vs 她",
+                explanation: "他 (tā) = él, 她 (tā) = ella. Se pronuncian igual pero se escriben diferente. También existe 它 para 'ello' (animales/cosas)."
+            },
+            {
+                point: "Preguntar con 谁",
+                explanation: "谁 (shéi) significa 'quién'. Se coloca donde iría la respuesta: 她是谁？→ 她是老师。"
+            }
+        ],
+        culturalNote: "En chino, las relaciones familiares son muy específicas. Hay palabras diferentes para cada tipo de tío, primo, abuelo, etc., dependiendo del lado materno o paterno.",
+        grammar: "de",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'mi libro'?",
+                options: ["我书", "我的书", "书我的", "的我书"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "她是___？(¿Quién es ella?)",
+                options: ["什么", "谁", "哪", "吗"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'su profesor (de él)'?",
+                options: ["她的老师", "他的老师", "我的老师", "你的老师"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 同学？",
+                options: ["profesor", "amigo", "compañero de clase", "estudiante"],
+                answer: 2
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 5: 她女儿今年二十岁 - Familia y edad =====
+    {
+        num: 5,
+        title: "她女儿今年二十岁",
+        subtitle: "Tā nǚ'ér jīnnián èrshí suì - Su hija tiene 20 años este año",
+        topic: "Familia y edad",
+        introduction: "En esta lección aprenderás vocabulario de familia, cómo preguntar y decir la edad, y usar el verbo 有 (tener). También introducimos la partícula 了 para indicar cambio de estado.",
+        objectives: [
+            "Vocabulario de familia (papá, mamá, hijo, hija)",
+            "Preguntar y decir la edad con 几岁 y 多大",
+            "Usar el verbo 有 (tener)",
+            "Entender la partícula 了 para cambio de estado"
+        ],
+        dialogue: {
+            title: "Hablando de familia",
+            lines: [
+                { speaker: "A", cn: "你家有几口人？", py: "Nǐ jiā yǒu jǐ kǒu rén?", es: "¿Cuántas personas hay en tu familia?" },
+                { speaker: "B", cn: "我家有四口人：爸爸、妈妈、我和我的妹妹。", py: "Wǒ jiā yǒu sì kǒu rén: bàba, māma, wǒ hé wǒ de mèimei.", es: "Somos 4: papá, mamá, yo y mi hermana menor." },
+                { speaker: "A", cn: "你妹妹几岁了？", py: "Nǐ mèimei jǐ suì le?", es: "¿Cuántos años tiene tu hermana?" },
+                { speaker: "B", cn: "她今年十五岁了。", py: "Tā jīnnián shíwǔ suì le.", es: "Este año tiene 15 años." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "几 vs 多少",
+                explanation: "几 se usa para números pequeños (generalmente menos de 10). Para números grandes o indefinidos, usa 多少."
+            },
+            {
+                point: "Expresar edad",
+                explanation: "Número + 岁 (años de edad). Para niños: 几岁？ Para adultos es más cortés: 多大？"
+            },
+            {
+                point: "有 para tener y existir",
+                explanation: "我有... (Tengo...). 家里有... (En casa hay...). Negativo: 没有 (no tener/no haber)."
+            },
+            {
+                point: "Partícula 了",
+                explanation: "了 indica cambio de estado o situación nueva. 她20岁了 = Ella ya tiene 20 años (ha llegado a esa edad)."
+            }
+        ],
+        culturalNote: "En China, preguntar la edad no es de mala educación como en occidente. Es común preguntar la edad para saber cómo dirigirse a alguien (hermano mayor/menor, tío, etc.).",
+        grammar: "you",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas la edad de un niño?",
+                options: ["你多大？", "你几岁？", "你有几岁？", "你是几岁？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "我家___五口人。(Mi familia tiene 5 personas)",
+                options: ["是", "有", "在", "的"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'mi hermana menor'?",
+                options: ["我的姐姐", "我的妹妹", "我的女儿", "我的儿子"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 今年？",
+                options: ["ayer", "mañana", "este año", "el año pasado"],
+                answer: 2
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 6: 我会说汉语 - Habilidades =====
+    {
+        num: 6,
+        title: "我会说汉语",
+        subtitle: "Wǒ huì shuō Hànyǔ - Sé hablar chino",
+        topic: "Habilidades",
+        introduction: "Aprende a expresar habilidades con 会, hablar de cosas que sabes o puedes hacer, y vocabulario relacionado con idiomas y actividades.",
+        objectives: [
+            "Usar 会 para expresar habilidades aprendidas",
+            "Verbos de acción: hablar, escribir, leer, hacer",
+            "Preguntar cómo se hace algo con 怎么",
+            "Adjetivos: bueno, delicioso, muy"
+        ],
+        dialogue: {
+            title: "Hablando de habilidades",
+            lines: [
+                { speaker: "A", cn: "你会说汉语吗？", py: "Nǐ huì shuō Hànyǔ ma?", es: "¿Sabes hablar chino?" },
+                { speaker: "B", cn: "会，但是说得不太好。", py: "Huì, dànshì shuō de bú tài hǎo.", es: "Sí, pero no hablo muy bien." },
+                { speaker: "A", cn: "你会写汉字吗？", py: "Nǐ huì xiě Hànzì ma?", es: "¿Sabes escribir caracteres chinos?" },
+                { speaker: "B", cn: "会写一点儿。这个字怎么写？", py: "Huì xiě yìdiǎnr. Zhège zì zěnme xiě?", es: "Sé escribir un poco. ¿Cómo se escribe este carácter?" }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "会 para habilidades",
+                explanation: "会 indica una habilidad que se ha aprendido: 会说 (saber hablar), 会写 (saber escribir), 会做 (saber hacer)."
+            },
+            {
+                point: "很 como intensificador",
+                explanation: "很 significa 'muy' y es casi obligatorio antes de adjetivos en oraciones afirmativas: 很好 (muy bueno/está bien)."
+            },
+            {
+                point: "怎么 para preguntar 'cómo'",
+                explanation: "怎么 + verbo pregunta el método: 怎么做？(¿Cómo se hace?) 怎么写？(¿Cómo se escribe?)"
+            }
+        ],
+        culturalNote: "Los chinos suelen ser modestos sobre sus habilidades. Es común decir '会一点儿' (sé un poco) incluso si dominas algo, como muestra de humildad.",
+        grammar: "hui",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Sé hablar chino'?",
+                options: ["我说汉语", "我会说汉语", "我想说汉语", "我能说汉语"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "这个字___写？(¿Cómo se escribe este carácter?)",
+                options: ["什么", "怎么", "谁", "哪"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'muy delicioso'?",
+                options: ["好吃", "很好吃", "不好吃", "太好吃"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 做？",
+                options: ["hablar", "escribir", "hacer", "leer"],
+                answer: 2
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 7: 今天几号 - Fechas y días =====
+    {
+        num: 7,
+        title: "今天几号",
+        subtitle: "Jīntiān jǐ hào - ¿Qué fecha es hoy?",
+        topic: "Fechas y días",
+        introduction: "Aprende a hablar de fechas, días de la semana, y expresiones de tiempo como ayer, hoy y mañana.",
+        objectives: [
+            "Decir y preguntar la fecha",
+            "Días de la semana (星期一 a 星期日)",
+            "Expresiones de tiempo: ayer, hoy, mañana",
+            "Verbos: ir, ver/leer"
+        ],
+        dialogue: {
+            title: "Haciendo planes",
+            lines: [
+                { speaker: "A", cn: "今天几号？", py: "Jīntiān jǐ hào?", es: "¿Qué fecha es hoy?" },
+                { speaker: "B", cn: "今天十月五号，星期三。", py: "Jīntiān shí yuè wǔ hào, xīngqīsān.", es: "Hoy es 5 de octubre, miércoles." },
+                { speaker: "A", cn: "明天你去学校吗？", py: "Míngtiān nǐ qù xuéxiào ma?", es: "¿Mañana vas a la escuela?" },
+                { speaker: "B", cn: "不去，明天是星期四，我想在家看书。", py: "Bù qù, míngtiān shì xīngqīsì, wǒ xiǎng zài jiā kàn shū.", es: "No voy, mañana es jueves, quiero quedarme en casa leyendo." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "Formato de fecha en chino",
+                explanation: "Año + 年 + Mes + 月 + Día + 号/日. Ejemplo: 2024年10月5号 (5 de octubre de 2024)."
+            },
+            {
+                point: "Días de la semana",
+                explanation: "星期 + número (1-6) para lunes a sábado. Domingo = 星期日 o 星期天."
+            },
+            {
+                point: "Tiempo relativo",
+                explanation: "昨天 (ayer), 今天 (hoy), 明天 (mañana). Se colocan al inicio o después del sujeto."
+            }
+        ],
+        culturalNote: "En China se usa tanto el calendario gregoriano como el lunar tradicional. Las fiestas tradicionales como el Año Nuevo Chino siguen el calendario lunar.",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'miércoles'?",
+                options: ["星期一", "星期二", "星期三", "星期四"],
+                answer: 2
+            },
+            {
+                type: "complete",
+                question: "今天是十___五号。(Hoy es 15 de octubre)",
+                options: ["年", "月", "日", "号"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Qué fecha es hoy?'",
+                options: ["今天星期几？", "今天几号？", "几点了？", "今天怎么样？"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 昨天？",
+                options: ["hoy", "ayer", "mañana", "la semana pasada"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 8: 我想喝茶 - Comida y compras =====
+    {
+        num: 8,
+        title: "我想喝茶",
+        subtitle: "Wǒ xiǎng hē chá - Quiero beber té",
+        topic: "Comida y compras",
+        introduction: "Aprende vocabulario de comida y bebida, cómo expresar deseos con 想, y cómo hacer compras básicas.",
+        objectives: [
+            "Usar 想 para expresar deseos",
+            "Vocabulario de comida y bebida",
+            "Preguntar precios con 多少钱",
+            "Clasificadores: 个, 本, 块"
+        ],
+        dialogue: {
+            title: "En un café",
+            lines: [
+                { speaker: "Mesero", cn: "你好！你想喝什么？", py: "Nǐ hǎo! Nǐ xiǎng hē shénme?", es: "¡Hola! ¿Qué quieres beber?" },
+                { speaker: "Cliente", cn: "我想喝茶。这个茶多少钱？", py: "Wǒ xiǎng hē chá. Zhège chá duōshao qián?", es: "Quiero beber té. ¿Cuánto cuesta este té?" },
+                { speaker: "Mesero", cn: "二十块。", py: "Èrshí kuài.", es: "20 yuanes." },
+                { speaker: "Cliente", cn: "好，我要一杯。", py: "Hǎo, wǒ yào yì bēi.", es: "Bien, quiero uno (una taza)." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "想 para deseos",
+                explanation: "想 + verbo expresa lo que quieres hacer: 想喝 (querer beber), 想吃 (querer comer), 想买 (querer comprar)."
+            },
+            {
+                point: "Preguntar precio",
+                explanation: "多少钱？(¿Cuánto cuesta?) o 这个多少钱？(¿Cuánto cuesta esto?)"
+            },
+            {
+                point: "Clasificadores",
+                explanation: "个 (general), 本 (libros), 杯 (vasos/tazas), 块 (yuanes). Van entre número y sustantivo: 一个人, 一本书."
+            }
+        ],
+        culturalNote: "El té es fundamental en la cultura china. Ofrecer té a los invitados es un signo de respeto y hospitalidad. El '茶道' (ceremonia del té) es un arte milenario.",
+        grammar: "xiang",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Cuánto cuesta?'",
+                options: ["这是什么？", "多少钱？", "你想什么？", "几个？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "我想___茶。(Quiero beber té)",
+                options: ["吃", "喝", "买", "看"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'un libro'?",
+                options: ["一书", "一个书", "一本书", "书一本"],
+                answer: 2
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 块？",
+                options: ["yuan (dinero)", "libro", "persona", "taza"],
+                answer: 0
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 9: 你儿子在哪儿工作 - Ubicación y trabajo =====
+    {
+        num: 9,
+        title: "你儿子在哪儿工作",
+        subtitle: "Nǐ érzi zài nǎr gōngzuò - ¿Dónde trabaja tu hijo?",
+        topic: "Ubicación y trabajo",
+        introduction: "Aprende a preguntar y decir dónde están las cosas y personas, vocabulario de lugares de trabajo, y ubicaciones relativas.",
+        objectives: [
+            "Usar 在 para indicar ubicación",
+            "Preguntar dónde con 哪儿",
+            "Vocabulario de lugares (hospital, escuela, etc.)",
+            "Posiciones: arriba, abajo, dentro"
+        ],
+        dialogue: {
+            title: "Hablando del trabajo",
+            lines: [
+                { speaker: "A", cn: "你儿子在哪儿工作？", py: "Nǐ érzi zài nǎr gōngzuò?", es: "¿Dónde trabaja tu hijo?" },
+                { speaker: "B", cn: "他在医院工作，他是医生。", py: "Tā zài yīyuàn gōngzuò, tā shì yīshēng.", es: "Trabaja en el hospital, es médico." },
+                { speaker: "A", cn: "医院在哪儿？", py: "Yīyuàn zài nǎr?", es: "¿Dónde está el hospital?" },
+                { speaker: "B", cn: "在学校旁边。", py: "Zài xuéxiào pángbiān.", es: "Está al lado de la escuela." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "在 para ubicación",
+                explanation: "Sujeto + 在 + Lugar: 他在家 (Él está en casa). También: Sujeto + 在 + Lugar + Verbo: 他在医院工作."
+            },
+            {
+                point: "哪儿 para preguntar dónde",
+                explanation: "在哪儿？(¿Dónde está?) 你在哪儿？(¿Dónde estás?) También se puede usar 哪里."
+            },
+            {
+                point: "Posiciones relativas",
+                explanation: "上 (arriba), 下 (abajo), 里 (dentro), 旁边 (al lado). Se usan después del sustantivo: 桌子上 (encima de la mesa)."
+            }
+        ],
+        culturalNote: "En China, preguntar sobre el trabajo y el salario no es considerado tan personal como en occidente. Es una forma común de conocer a alguien.",
+        grammar: "zai",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Dónde estás?'",
+                options: ["你是谁？", "你在哪儿？", "你去哪儿？", "你做什么？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "他___医院工作。(Él trabaja en el hospital)",
+                options: ["是", "有", "在", "的"],
+                answer: 2
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'encima de la mesa'?",
+                options: ["桌子下面", "桌子上", "桌子里", "桌子旁边"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 医生？",
+                options: ["hospital", "médico", "enfermero", "paciente"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 10: 我能坐这儿吗 - Permiso y existencia =====
+    {
+        num: 10,
+        title: "我能坐这儿吗",
+        subtitle: "Wǒ néng zuò zhè'er ma - ¿Puedo sentarme aquí?",
+        topic: "Permiso y existencia",
+        introduction: "Aprende a pedir permiso con 能, expresar existencia con 有, y usar demostrativos para lugares.",
+        objectives: [
+            "Usar 能 para pedir permiso",
+            "Diferencia entre 有 y 在 para existencia/ubicación",
+            "Demostrativos de lugar: aquí, allí",
+            "Negación con 没"
+        ],
+        dialogue: {
+            title: "En una cafetería",
+            lines: [
+                { speaker: "A", cn: "请问，我能坐这儿吗？", py: "Qǐngwèn, wǒ néng zuò zhè'er ma?", es: "Disculpe, ¿puedo sentarme aquí?" },
+                { speaker: "B", cn: "可以，请坐！", py: "Kěyǐ, qǐng zuò!", es: "Sí, ¡por favor siéntese!" },
+                { speaker: "A", cn: "桌子上有菜单吗？", py: "Zhuōzi shàng yǒu càidān ma?", es: "¿Hay menú en la mesa?" },
+                { speaker: "B", cn: "没有，我给你一个。", py: "Méi yǒu, wǒ gěi nǐ yí gè.", es: "No hay, te doy uno." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "能 vs 会 vs 可以",
+                explanation: "能: capacidad física o permiso. 会: habilidad aprendida. 可以: permiso (más formal que 能)."
+            },
+            {
+                point: "有 para existencia",
+                explanation: "Lugar + 有 + Cosa indica que algo existe en un lugar: 桌子上有一本书 (Hay un libro en la mesa)."
+            },
+            {
+                point: "Negación 没/没有",
+                explanation: "没有 niega 有: 我没有钱 (No tengo dinero). 没 también niega acciones pasadas: 我没去 (No fui)."
+            }
+        ],
+        culturalNote: "En China es común compartir mesa con desconocidos en restaurantes llenos. Preguntar '我能坐这儿吗？' es muy útil y educado.",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo pides permiso para sentarte?",
+                options: ["我坐这儿", "我想坐这儿", "我能坐这儿吗？", "我要坐这儿"],
+                answer: 2
+            },
+            {
+                type: "complete",
+                question: "桌子上___一本书。(Hay un libro en la mesa)",
+                options: ["是", "在", "有", "的"],
+                answer: 2
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'No tengo dinero'?",
+                options: ["我不有钱", "我没有钱", "我不是钱", "我没钱有"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 这儿？",
+                options: ["allí", "aquí", "dónde", "ahí"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 11: 现在几点 - Hora y tiempo =====
+    {
+        num: 11,
+        title: "现在几点",
+        subtitle: "Xiànzài jǐ diǎn - ¿Qué hora es?",
+        topic: "Hora y tiempo",
+        introduction: "Aprende a decir y preguntar la hora, hablar de horarios y usar expresiones de tiempo.",
+        objectives: [
+            "Preguntar y decir la hora",
+            "Expresiones: ahora, antes, después",
+            "Hablar de horarios y actividades diarias",
+            "Verbos: volver, vivir"
+        ],
+        dialogue: {
+            title: "Organizando el día",
+            lines: [
+                { speaker: "A", cn: "现在几点？", py: "Xiànzài jǐ diǎn?", es: "¿Qué hora es?" },
+                { speaker: "B", cn: "现在三点半。", py: "Xiànzài sān diǎn bàn.", es: "Son las 3:30." },
+                { speaker: "A", cn: "你什么时候回家？", py: "Nǐ shénme shíhou huí jiā?", es: "¿Cuándo vuelves a casa?" },
+                { speaker: "B", cn: "六点以后。我们一起去看电影吧？", py: "Liù diǎn yǐhòu. Wǒmen yìqǐ qù kàn diànyǐng ba?", es: "Después de las 6. ¿Vamos a ver una película juntos?" }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "Decir la hora",
+                explanation: "Número + 点 = hora. 半 = y media. 分 = minutos. Ejemplo: 三点十五分 (3:15), 三点半 (3:30)."
+            },
+            {
+                point: "什么时候 para 'cuándo'",
+                explanation: "什么时候 pregunta el momento: 你什么时候来？(¿Cuándo vienes?)"
+            },
+            {
+                point: "Expresiones de tiempo",
+                explanation: "以前 (antes), 以后 (después), 现在 (ahora). Ejemplo: 三点以前 (antes de las 3)."
+            }
+        ],
+        culturalNote: "En China se usa el sistema de 24 horas en contextos formales, pero en conversación casual se especifica: 上午 (AM), 下午 (PM), 晚上 (noche).",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Qué hora es?'",
+                options: ["今天几号？", "现在几点？", "什么时候？", "几个小时？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "现在三点___。(Son las 3:30)",
+                options: ["十", "二十", "半", "零"],
+                answer: 2
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'después de las 6'?",
+                options: ["六点以前", "六点以后", "六点半", "六点钟"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 回家？",
+                options: ["ir a la escuela", "volver a casa", "ir al trabajo", "salir"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 12: 明天天气怎么样 - Clima y estado =====
+    {
+        num: 12,
+        title: "明天天气怎么样",
+        subtitle: "Míngtiān tiānqì zěnmeyàng - ¿Cómo estará el clima mañana?",
+        topic: "Clima y estado",
+        introduction: "Aprende a hablar del clima, expresar estados físicos y emocionales, y usar 太...了 para énfasis.",
+        objectives: [
+            "Vocabulario del clima",
+            "Preguntar y describir estados con 怎么样",
+            "Usar 太...了 para énfasis",
+            "Expresar emociones y sensaciones"
+        ],
+        dialogue: {
+            title: "Hablando del clima",
+            lines: [
+                { speaker: "A", cn: "明天天气怎么样？", py: "Míngtiān tiānqì zěnmeyàng?", es: "¿Cómo estará el clima mañana?" },
+                { speaker: "B", cn: "明天会下雨，很冷。", py: "Míngtiān huì xià yǔ, hěn lěng.", es: "Mañana va a llover, hará frío." },
+                { speaker: "A", cn: "太冷了！我不想出去。", py: "Tài lěng le! Wǒ bù xiǎng chūqù.", es: "¡Demasiado frío! No quiero salir." },
+                { speaker: "B", cn: "我也是，在家喝热茶很好。", py: "Wǒ yě shì, zài jiā hē rè chá hěn hǎo.", es: "Yo también, es agradable tomar té caliente en casa." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "怎么样 para preguntar estado",
+                explanation: "...怎么样？pregunta cómo está algo: 天气怎么样？(¿Cómo está el clima?) 你怎么样？(¿Cómo estás?)"
+            },
+            {
+                point: "太...了 para énfasis",
+                explanation: "太 + adjetivo + 了 expresa 'demasiado': 太热了 (demasiado caliente), 太好了 (¡genial!)."
+            },
+            {
+                point: "会 para predicciones",
+                explanation: "会 también indica probabilidad futura: 明天会下雨 (Mañana va a llover)."
+            }
+        ],
+        culturalNote: "El clima es un tema de conversación común en China. Las diferentes regiones tienen climas muy variados, desde el frío extremo del norte hasta el tropical del sur.",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo preguntas '¿Cómo está el clima?'",
+                options: ["天气是什么？", "天气怎么样？", "天气好吗？", "今天几度？"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "今天___热了！(¡Hoy hace demasiado calor!)",
+                options: ["很", "太", "不", "真"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Está lloviendo'?",
+                options: ["下雨了", "很冷", "很热", "天气好"],
+                answer: 0
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 冷？",
+                options: ["caliente", "frío", "lluvioso", "nublado"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 13: 他在学做中国菜呢 - Acciones en progreso =====
+    {
+        num: 13,
+        title: "他在学做中国菜呢",
+        subtitle: "Tā zài xué zuò Zhōngguó cài ne - Está aprendiendo a cocinar comida china",
+        topic: "Acciones en progreso",
+        introduction: "Aprende a expresar acciones en progreso con 在...呢, vocabulario de actividades diarias, y cómo hacer llamadas telefónicas.",
+        objectives: [
+            "Expresar acciones en progreso con 在...呢",
+            "Actividades diarias (dormir, ver TV, estudiar)",
+            "Hacer y recibir llamadas telefónicas",
+            "Partícula 吧 para sugerencias"
+        ],
+        dialogue: {
+            title: "Llamada telefónica",
+            lines: [
+                { speaker: "A", cn: "喂，你好！你在做什么呢？", py: "Wèi, nǐ hǎo! Nǐ zài zuò shénme ne?", es: "¡Hola! ¿Qué estás haciendo?" },
+                { speaker: "B", cn: "我在看电视呢。你呢？", py: "Wǒ zài kàn diànshì ne. Nǐ ne?", es: "Estoy viendo televisión. ¿Y tú?" },
+                { speaker: "A", cn: "我在学做中国菜。下午一起吃饭吧？", py: "Wǒ zài xué zuò Zhōngguó cài. Xiàwǔ yìqǐ chī fàn ba?", es: "Estoy aprendiendo a cocinar comida china. ¿Comemos juntos por la tarde?" },
+                { speaker: "B", cn: "好的！", py: "Hǎo de!", es: "¡Vale!" }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "在...呢 para acciones en progreso",
+                explanation: "Sujeto + 在 + Verbo + (Objeto) + 呢 indica acción en curso: 他在睡觉呢 (Él está durmiendo)."
+            },
+            {
+                point: "喂 para contestar el teléfono",
+                explanation: "喂 (wèi) es el equivalente a 'Hola' o 'Diga' al contestar una llamada telefónica."
+            },
+            {
+                point: "吧 para sugerencias",
+                explanation: "Añade 吧 al final para hacer sugerencias suaves: 走吧 (Vamos), 吃饭吧 (Vamos a comer)."
+            }
+        ],
+        culturalNote: "En China, es común contestar el teléfono con un simple '喂' seguido de '你好'. Colgar sin despedirse no es considerado maleducado en llamadas cortas.",
+        grammar: "zai",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Estoy estudiando'?",
+                options: ["我学习", "我在学习呢", "我想学习", "我会学习"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "我们一起去___？(¿Vamos juntos?)",
+                options: ["吗", "呢", "吧", "的"],
+                answer: 2
+            },
+            {
+                type: "translate",
+                question: "¿Cómo contestas el teléfono?",
+                options: ["你好", "喂", "再见", "谢谢"],
+                answer: 1
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 睡觉？",
+                options: ["comer", "dormir", "trabajar", "estudiar"],
+                answer: 1
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 14: 她买了不少衣服 - Acciones completadas =====
+    {
+        num: 14,
+        title: "她买了不少衣服",
+        subtitle: "Tā mǎi le bù shǎo yīfu - Ella compró bastante ropa",
+        topic: "Acciones completadas",
+        introduction: "Aprende a expresar acciones completadas con 了, cuantificadores como 不少, y vocabulario de compras y ropa.",
+        objectives: [
+            "Usar 了 para acciones completadas",
+            "Expresiones de cantidad: 不少, 一点儿",
+            "Vocabulario de ropa y compras",
+            "Verbos: comprar, ver (avistar)"
+        ],
+        dialogue: {
+            title: "Después de ir de compras",
+            lines: [
+                { speaker: "A", cn: "你买了什么？", py: "Nǐ mǎi le shénme?", es: "¿Qué compraste?" },
+                { speaker: "B", cn: "我买了不少衣服，都很漂亮！", py: "Wǒ mǎi le bù shǎo yīfu, dōu hěn piàoliang!", es: "Compré bastante ropa, ¡toda muy bonita!" },
+                { speaker: "A", cn: "我看见了，那件红色的很好看。", py: "Wǒ kànjiàn le, nà jiàn hóngsè de hěn hǎokàn.", es: "Ya vi, esa roja es muy bonita." },
+                { speaker: "B", cn: "我也买了一点儿水果。", py: "Wǒ yě mǎi le yìdiǎnr shuǐguǒ.", es: "También compré un poco de fruta." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "了 para acciones completadas",
+                explanation: "Verbo + 了 indica que la acción ya se completó: 我吃了 (Ya comí), 她买了 (Ella compró)."
+            },
+            {
+                point: "不少 vs 一点儿",
+                explanation: "不少 = bastante/no poco. 一点儿 = un poco. Son cuantificadores de cantidad."
+            },
+            {
+                point: "都 para 'todos'",
+                explanation: "都 significa 'todos/ambos' y va antes del verbo: 我们都是学生 (Todos somos estudiantes)."
+            }
+        ],
+        culturalNote: "Regatear es común en mercados chinos. Preguntar el precio y negociar es parte de la cultura de compras, especialmente en mercados tradicionales.",
+        grammar: "le",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Ya comí'?",
+                options: ["我吃", "我在吃", "我吃了", "我想吃"],
+                answer: 2
+            },
+            {
+                type: "complete",
+                question: "她买了___衣服。(Ella compró bastante ropa)",
+                options: ["很", "太", "不少", "一点儿"],
+                answer: 2
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Todos somos estudiantes'?",
+                options: ["我是学生", "我们是学生", "我们都是学生", "他们是学生"],
+                answer: 2
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 漂亮？",
+                options: ["grande", "pequeño", "bonito", "feo"],
+                answer: 2
+            }
+        ]
+    },
+
+    // ===== LECCIÓN 15: 我是坐飞机来的 - Énfasis y transporte =====
+    {
+        num: 15,
+        title: "我是坐飞机来的",
+        subtitle: "Wǒ shì zuò fēijī lái de - Vine en avión",
+        topic: "Énfasis y transporte",
+        introduction: "En esta lección final aprenderás la estructura 是...的 para enfatizar cómo, cuándo o dónde ocurrió algo, y vocabulario de transporte.",
+        objectives: [
+            "Usar 是...的 para énfasis",
+            "Vocabulario de transporte",
+            "Expresiones para conocer gente nueva",
+            "Verbo 来 (venir) y direcciones"
+        ],
+        dialogue: {
+            title: "Conociendo a alguien",
+            lines: [
+                { speaker: "A", cn: "认识你很高兴！你是什么时候来北京的？", py: "Rènshi nǐ hěn gāoxìng! Nǐ shì shénme shíhou lái Běijīng de?", es: "¡Encantado de conocerte! ¿Cuándo viniste a Beijing?" },
+                { speaker: "B", cn: "我是上个月来的。", py: "Wǒ shì shàng gè yuè lái de.", es: "Vine el mes pasado." },
+                { speaker: "A", cn: "你是怎么来的？坐飞机吗？", py: "Nǐ shì zěnme lái de? Zuò fēijī ma?", es: "¿Cómo viniste? ¿En avión?" },
+                { speaker: "B", cn: "是的，我是坐飞机来的。", py: "Shì de, wǒ shì zuò fēijī lái de.", es: "Sí, vine en avión." }
+            ]
+        },
+        keyPoints: [
+            {
+                point: "Estructura 是...的",
+                explanation: "Sujeto + 是 + [tiempo/lugar/modo] + Verbo + 的 enfatiza el tiempo, lugar o manera: 我是坐飞机来的 (Vine EN AVIÓN)."
+            },
+            {
+                point: "Medios de transporte",
+                explanation: "坐 + transporte para indicar cómo viajas: 坐飞机 (en avión), 坐出租车 (en taxi), 坐火车 (en tren)."
+            },
+            {
+                point: "认识 para conocer personas",
+                explanation: "认识 significa conocer a alguien. 认识你很高兴 = Encantado de conocerte."
+            }
+        ],
+        culturalNote: "China tiene una de las redes de trenes de alta velocidad más extensas del mundo. El '高铁' (gāotiě) conecta las principales ciudades de forma rápida y económica.",
+        grammar: "shide",
+        exercises: [
+            {
+                type: "translate",
+                question: "¿Cómo enfatizas que viniste EN AVIÓN?",
+                options: ["我坐飞机来", "我是坐飞机来的", "我要坐飞机来", "我会坐飞机来"],
+                answer: 1
+            },
+            {
+                type: "complete",
+                question: "你是什么时候___的？(¿Cuándo viniste?)",
+                options: ["去", "来", "走", "回"],
+                answer: 1
+            },
+            {
+                type: "translate",
+                question: "¿Cómo dices 'Encantado de conocerte'?",
+                options: ["你好", "谢谢", "认识你很高兴", "再见"],
+                answer: 2
+            },
+            {
+                type: "meaning",
+                question: "¿Qué significa 出租车？",
+                options: ["autobús", "metro", "taxi", "avión"],
+                answer: 2
+            }
+        ]
+    }
+];
+
 // Exportar datos
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -457,6 +1494,7 @@ if (typeof module !== 'undefined' && module.exports) {
         GRAMMAR_POINTS,
         EXAM_QUESTIONS,
         TONE_PRACTICE,
-        HANZI_PRACTICE
+        HANZI_PRACTICE,
+        LESSONS_CONTENT
     };
 }

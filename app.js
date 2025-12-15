@@ -50,6 +50,42 @@ class HSK1App {
         this.initTechniques();
         this.initHanziWriter();
         this.initModules();
+        this.checkOnboarding();
+    }
+
+    // ===== Onboarding for New Users =====
+    checkOnboarding() {
+        const hasSeenOnboarding = localStorage.getItem('hsk1_onboarding_done');
+        if (!hasSeenOnboarding) {
+            setTimeout(() => this.showOnboarding(), 500);
+        }
+    }
+
+    showOnboarding() {
+        document.getElementById('onboarding-modal').classList.add('visible');
+    }
+
+    closeOnboarding() {
+        document.getElementById('onboarding-modal').classList.remove('visible');
+        localStorage.setItem('hsk1_onboarding_done', 'true');
+    }
+
+    startOnboardingPath(path) {
+        this.closeOnboarding();
+        if (path === 'lessons') {
+            this.navigateTo('lessons');
+            // Show lesson 1 detail automatically
+            setTimeout(() => this.showLessonDetail(1), 300);
+        } else if (path === 'flashcards') {
+            this.navigateTo('flashcards');
+        } else if (path === 'exam') {
+            this.navigateTo('exam');
+            // Select mini exam
+            setTimeout(() => {
+                const miniCard = document.querySelector('.exam-type-card[data-type="mini"]');
+                if (miniCard) miniCard.click();
+            }, 300);
+        }
     }
 
     // ===== Daily Goals System =====
@@ -255,6 +291,7 @@ class HSK1App {
                 easeFactor: 2.5, // Factor de facilidad (como Anki)
                 reviews: 0, // Número de revisiones
                 correct: 0, // Respuestas correctas
+                errors: 0, // Errores para revisión
                 lastReview: null
             };
         });
@@ -300,6 +337,7 @@ class HSK1App {
             // Respuesta incorrecta: reiniciar nivel
             srs.level = 0;
             srs.easeFactor = Math.max(1.3, srs.easeFactor - 0.2);
+            srs.errors = (srs.errors || 0) + 1; // Incrementar errores
         } else {
             srs.correct++;
             // Respuesta correcta: avanzar nivel
@@ -579,6 +617,17 @@ class HSK1App {
             });
         });
 
+        // Practice tabs (in exam section)
+        document.querySelectorAll('.practice-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                document.querySelectorAll('.practice-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.practice-content').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                const practiceType = e.target.dataset.practice;
+                document.getElementById(`${practiceType}-practice-content`).classList.add('active');
+            });
+        });
+
         // Matching game
         document.getElementById('start-matching')?.addEventListener('click', () => this.startMatchingGame());
 
@@ -656,7 +705,11 @@ class HSK1App {
             grammar: '语法 Gramática',
             lessons: '课文 Lecciones',
             exam: '考试 Examen',
-            exercises: '练习 Ejercicios'
+            exercises: '练习 Ejercicios',
+            techniques: '学习方法 Técnicas',
+            listening: '听力 Escucha',
+            reading: '阅读 Lectura',
+            statistics: '统计 Estadísticas'
         };
         document.getElementById('page-title').textContent = titles[section] || 'HSK1';
 
@@ -673,6 +726,12 @@ class HSK1App {
         } else if (section === 'flashcards') {
             // Re-add mic button when entering flashcards
             setTimeout(() => this.addMicButtonToFlashcards(), 100);
+        } else if (section === 'listening') {
+            this.initListeningSection();
+        } else if (section === 'reading') {
+            this.initReadingSection();
+        } else if (section === 'statistics') {
+            this.initStatisticsSection();
         }
     }
 
@@ -1908,11 +1967,18 @@ class HSK1App {
         const grid = document.getElementById('lessons-grid');
         grid.innerHTML = '';
 
+        // Find the next recommended lesson
+        const completedLessons = this.progress.lessonsCompleted || [];
+        const nextLesson = completedLessons.length === 0 ? 1 :
+            Math.min(Math.max(...completedLessons) + 1, 15);
+
         LESSONS_INFO.forEach(lesson => {
-            const isCompleted = this.progress.lessonsCompleted.includes(lesson.num);
+            const isCompleted = completedLessons.includes(lesson.num);
+            const isRecommended = lesson.num === nextLesson && !isCompleted;
             const card = document.createElement('div');
-            card.className = 'lesson-card';
+            card.className = `lesson-card${isRecommended ? ' recommended' : ''}${isCompleted ? ' completed' : ''}`;
             card.innerHTML = `
+                ${isRecommended ? '<div class="lesson-badge-recommended">Siguiente</div>' : ''}
                 <div class="lesson-num">Lección ${lesson.num}</div>
                 <div class="lesson-title">${lesson.title.slice(0, 2)}</div>
                 <div class="lesson-subtitle">${lesson.subtitle.slice(0, 15)}...</div>
@@ -1925,31 +1991,289 @@ class HSK1App {
 
     showLessonDetail(lessonNum) {
         const lesson = LESSONS_INFO.find(l => l.num === lessonNum);
+        const lessonContent = LESSONS_CONTENT.find(l => l.num === lessonNum);
         const vocab = this.vocabulary.filter(w => w.lesson === lessonNum);
+        const grammarPoint = lessonContent?.grammar ? GRAMMAR_POINTS.find(g => g.id === lessonContent.grammar) : null;
 
         document.getElementById('lessons-grid').classList.add('hidden');
         document.getElementById('lesson-detail').classList.remove('hidden');
 
         const content = document.getElementById('lesson-content');
-        content.innerHTML = `
-            <h2>Lección ${lesson.num}: ${lesson.title}</h2>
-            <p class="lesson-topic">${lesson.topic}</p>
 
-            <h3>Vocabulario de esta lección (${vocab.length} palabras)</h3>
-            <div class="vocab-list">
-                ${vocab.map(w => `
-                    <div class="vocab-item">
-                        <span class="vocab-hanzi">${w.hanzi}</span>
-                        <span class="vocab-pinyin">${w.pinyin}</span>
-                        <span class="vocab-meaning">${w.meaning}</span>
+        // Build the complete lesson HTML
+        let html = `
+            <div class="lesson-header">
+                <h2>Lección ${lesson.num}: ${lesson.title}</h2>
+                <p class="lesson-subtitle">${lessonContent?.subtitle || lesson.subtitle}</p>
+                <span class="lesson-topic-badge">${lesson.topic}</span>
+            </div>
+
+            <!-- Introducción -->
+            <div class="lesson-section lesson-intro">
+                <h3>📚 Introducción</h3>
+                <p>${lessonContent?.introduction || 'Contenido de la lección ' + lessonNum}</p>
+            </div>
+
+            <!-- Objetivos de aprendizaje -->
+            ${lessonContent?.objectives ? `
+            <div class="lesson-section lesson-objectives">
+                <h3>🎯 Objetivos de aprendizaje</h3>
+                <ul>
+                    ${lessonContent.objectives.map(obj => `<li>${obj}</li>`).join('')}
+                </ul>
+            </div>
+            ` : ''}
+
+            <!-- Diálogo -->
+            ${lessonContent?.dialogue ? `
+            <div class="lesson-section lesson-dialogue">
+                <h3>💬 Diálogo: ${lessonContent.dialogue.title}</h3>
+                <div class="dialogue-box">
+                    ${lessonContent.dialogue.lines.map(line => `
+                        <div class="dialogue-line">
+                            <span class="speaker">${line.speaker}:</span>
+                            <span class="chinese" onclick="app.speakText('${line.cn}')">${line.cn}</span>
+                            <span class="pinyin">${line.py}</span>
+                            <span class="translation">${line.es}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="btn-audio" onclick="app.playDialogue(${lessonNum})">
+                    🔊 Escuchar diálogo completo
+                </button>
+            </div>
+            ` : ''}
+
+            <!-- Puntos clave -->
+            ${lessonContent?.keyPoints ? `
+            <div class="lesson-section lesson-keypoints">
+                <h3>🔑 Puntos clave</h3>
+                ${lessonContent.keyPoints.map(kp => `
+                    <div class="keypoint-card">
+                        <h4>${kp.point}</h4>
+                        <p>${kp.explanation}</p>
                     </div>
                 `).join('')}
             </div>
+            ` : ''}
 
-            <button class="start-exam-btn" onclick="app.practiceLesson(${lessonNum})" style="margin-top: 20px;">
-                Practicar esta lección
-            </button>
+            <!-- Punto gramatical relacionado -->
+            ${grammarPoint ? `
+            <div class="lesson-section lesson-grammar">
+                <h3>📖 Gramática: ${grammarPoint.name}</h3>
+                <div class="grammar-detail">
+                    <p><strong>Estructura:</strong> ${grammarPoint.structure}</p>
+                    ${grammarPoint.negative ? `<p><strong>Negativo:</strong> ${grammarPoint.negative}</p>` : ''}
+                    <div class="grammar-examples">
+                        ${grammarPoint.examples.map(ex => `
+                            <div class="grammar-example" onclick="app.speakText('${ex.cn}')">
+                                <span class="cn">${ex.cn}</span>
+                                <span class="py">${ex.py}</span>
+                                <span class="es">${ex.es}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+            ` : ''}
+
+            <!-- Vocabulario -->
+            <div class="lesson-section lesson-vocab">
+                <h3>📝 Vocabulario (${vocab.length} palabras)</h3>
+                <div class="vocab-grid">
+                    ${vocab.map(w => `
+                        <div class="vocab-card" onclick="app.speakText('${w.hanzi}')">
+                            <span class="vocab-hanzi tone-${w.tone}">${w.hanzi}</span>
+                            <span class="vocab-pinyin">${w.pinyin}</span>
+                            <span class="vocab-meaning">${w.meaning}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Nota cultural -->
+            ${lessonContent?.culturalNote ? `
+            <div class="lesson-section lesson-culture">
+                <h3>🏮 Nota cultural</h3>
+                <p>${lessonContent.culturalNote}</p>
+            </div>
+            ` : ''}
+
+            <!-- Botones de acción -->
+            <div class="lesson-actions">
+                <button class="btn-primary" onclick="app.practiceLesson(${lessonNum})">
+                    🃏 Practicar Flashcards
+                </button>
+                <button class="btn-secondary" onclick="app.startLessonQuiz(${lessonNum})">
+                    ✏️ Quiz de la Lección
+                </button>
+            </div>
         `;
+
+        content.innerHTML = html;
+
+        // Scroll to top of content
+        content.scrollTop = 0;
+    }
+
+    // Play full dialogue audio
+    playDialogue(lessonNum) {
+        const lessonContent = LESSONS_CONTENT.find(l => l.num === lessonNum);
+        if (!lessonContent?.dialogue) return;
+
+        const lines = lessonContent.dialogue.lines;
+        let index = 0;
+
+        const playNext = () => {
+            if (index < lines.length) {
+                this.speakText(lines[index].cn, () => {
+                    index++;
+                    setTimeout(playNext, 500);
+                });
+            }
+        };
+
+        playNext();
+    }
+
+    // Start lesson-specific quiz
+    startLessonQuiz(lessonNum) {
+        const lessonContent = LESSONS_CONTENT.find(l => l.num === lessonNum);
+        if (!lessonContent?.exercises) {
+            this.showFeedback('wrong', 'Quiz no disponible para esta lección');
+            return;
+        }
+
+        this.currentLessonQuiz = {
+            lessonNum: lessonNum,
+            exercises: [...lessonContent.exercises],
+            currentIndex: 0,
+            correct: 0,
+            total: lessonContent.exercises.length
+        };
+
+        this.showLessonQuizQuestion();
+    }
+
+    showLessonQuizQuestion() {
+        const quiz = this.currentLessonQuiz;
+        if (!quiz) return;
+
+        const exercise = quiz.exercises[quiz.currentIndex];
+        const content = document.getElementById('lesson-content');
+
+        let html = `
+            <div class="lesson-quiz">
+                <div class="quiz-header">
+                    <h3>Quiz - Lección ${quiz.lessonNum}</h3>
+                    <span class="quiz-progress">Pregunta ${quiz.currentIndex + 1} de ${quiz.total}</span>
+                </div>
+
+                <div class="quiz-question">
+                    <p class="question-text">${exercise.question}</p>
+                    ${exercise.type === 'audio' && exercise.audioText ? `
+                        <button class="btn-audio-quiz" onclick="app.speakText('${exercise.audioText}')">
+                            🔊 Escuchar
+                        </button>
+                    ` : ''}
+                </div>
+
+                <div class="quiz-options">
+                    ${exercise.options.map((opt, idx) => `
+                        <button class="quiz-option" onclick="app.checkLessonQuizAnswer(${idx})">
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+
+                <button class="btn-back" onclick="app.showLessonDetail(${quiz.lessonNum})">
+                    ← Volver a la lección
+                </button>
+            </div>
+        `;
+
+        content.innerHTML = html;
+    }
+
+    checkLessonQuizAnswer(selectedIndex) {
+        const quiz = this.currentLessonQuiz;
+        if (!quiz) return;
+
+        const exercise = quiz.exercises[quiz.currentIndex];
+        const isCorrect = selectedIndex === exercise.answer;
+
+        if (isCorrect) {
+            quiz.correct++;
+            this.addXP(10);
+        }
+
+        // Show feedback
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach((opt, idx) => {
+            opt.disabled = true;
+            if (idx === exercise.answer) {
+                opt.classList.add('correct');
+            } else if (idx === selectedIndex && !isCorrect) {
+                opt.classList.add('incorrect');
+            }
+        });
+
+        // Move to next question after delay
+        setTimeout(() => {
+            quiz.currentIndex++;
+            if (quiz.currentIndex < quiz.total) {
+                this.showLessonQuizQuestion();
+            } else {
+                this.showLessonQuizResults();
+            }
+        }, 1500);
+    }
+
+    showLessonQuizResults() {
+        const quiz = this.currentLessonQuiz;
+        if (!quiz) return;
+
+        const percentage = Math.round((quiz.correct / quiz.total) * 100);
+        const passed = percentage >= 70;
+
+        // Mark lesson as completed if passed
+        if (passed && !this.progress.lessonsCompleted.includes(quiz.lessonNum)) {
+            this.progress.lessonsCompleted.push(quiz.lessonNum);
+            this.addXP(50);
+            this.saveProgress();
+        }
+
+        const content = document.getElementById('lesson-content');
+        content.innerHTML = `
+            <div class="quiz-results">
+                <h2>${passed ? '🎉 ¡Felicidades!' : '📚 Sigue practicando'}</h2>
+                <div class="results-score ${passed ? 'passed' : 'failed'}">
+                    <span class="score-number">${quiz.correct}/${quiz.total}</span>
+                    <span class="score-percent">${percentage}%</span>
+                </div>
+                <p class="results-message">
+                    ${passed
+                        ? '¡Has completado esta lección! Puedes continuar con la siguiente.'
+                        : 'Necesitas 70% para completar la lección. Repasa el contenido e inténtalo de nuevo.'}
+                </p>
+                ${passed ? `<p class="xp-earned">+50 XP ganados</p>` : ''}
+                <div class="results-actions">
+                    <button class="btn-primary" onclick="app.showLessonDetail(${quiz.lessonNum})">
+                        📖 Revisar lección
+                    </button>
+                    <button class="btn-secondary" onclick="app.startLessonQuiz(${quiz.lessonNum})">
+                        🔄 Repetir quiz
+                    </button>
+                    ${passed && quiz.lessonNum < 15 ? `
+                        <button class="btn-success" onclick="app.showLessonDetail(${quiz.lessonNum + 1})">
+                            ➡️ Siguiente lección
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+
+        this.currentLessonQuiz = null;
     }
 
     showLessonsList() {
@@ -1965,13 +2289,145 @@ class HSK1App {
     // ===== Grammar Practice =====
     startGrammarPractice(grammarId) {
         const grammar = GRAMMAR_POINTS.find(g => g.id === grammarId);
-        if (!grammar) return;
+        if (!grammar || !grammar.exercises) {
+            this.showFeedback('wrong', 'Ejercicios no disponibles');
+            return;
+        }
 
-        // Simple quiz based on grammar point
-        alert(`Práctica de "${grammar.name}" próximamente. Por ahora, revisa los ejemplos en la tarjeta.`);
+        // Initialize grammar quiz
+        this.currentGrammarQuiz = {
+            grammarId: grammarId,
+            grammarName: grammar.name,
+            exercises: [...grammar.exercises],
+            currentIndex: 0,
+            correct: 0,
+            total: grammar.exercises.length
+        };
 
-        this.progress.grammarPracticed++;
-        this.saveProgress();
+        this.showGrammarQuizModal();
+    }
+
+    showGrammarQuizModal() {
+        const quiz = this.currentGrammarQuiz;
+        if (!quiz) return;
+
+        const exercise = quiz.exercises[quiz.currentIndex];
+
+        // Create modal if it doesn't exist
+        let modal = document.getElementById('grammar-quiz-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'grammar-quiz-modal';
+            modal.className = 'modal-overlay';
+            document.body.appendChild(modal);
+        }
+
+        modal.innerHTML = `
+            <div class="grammar-quiz-container">
+                <div class="grammar-quiz-header">
+                    <h3>📖 ${quiz.grammarName}</h3>
+                    <span class="quiz-progress-badge">${quiz.currentIndex + 1}/${quiz.total}</span>
+                </div>
+
+                <div class="grammar-quiz-question">
+                    <p>${exercise.q}</p>
+                </div>
+
+                <div class="grammar-quiz-options">
+                    ${exercise.opts.map((opt, idx) => `
+                        <button class="grammar-option" onclick="app.checkGrammarAnswer(${idx})">
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+
+                <button class="grammar-quiz-close" onclick="app.closeGrammarQuiz()">
+                    ✕ Cerrar
+                </button>
+            </div>
+        `;
+
+        modal.classList.add('active');
+    }
+
+    checkGrammarAnswer(selectedIndex) {
+        const quiz = this.currentGrammarQuiz;
+        if (!quiz) return;
+
+        const exercise = quiz.exercises[quiz.currentIndex];
+        const isCorrect = selectedIndex === exercise.ans;
+
+        if (isCorrect) {
+            quiz.correct++;
+            this.addXP(10);
+        }
+
+        // Visual feedback
+        const options = document.querySelectorAll('.grammar-option');
+        options.forEach((opt, idx) => {
+            opt.disabled = true;
+            if (idx === exercise.ans) {
+                opt.classList.add('correct');
+            } else if (idx === selectedIndex && !isCorrect) {
+                opt.classList.add('incorrect');
+            }
+        });
+
+        // Next question after delay
+        setTimeout(() => {
+            quiz.currentIndex++;
+            if (quiz.currentIndex < quiz.total) {
+                this.showGrammarQuizModal();
+            } else {
+                this.showGrammarQuizResults();
+            }
+        }, 1200);
+    }
+
+    showGrammarQuizResults() {
+        const quiz = this.currentGrammarQuiz;
+        if (!quiz) return;
+
+        const percentage = Math.round((quiz.correct / quiz.total) * 100);
+        const passed = percentage >= 75;
+
+        if (passed) {
+            this.progress.grammarPracticed++;
+            this.addXP(25);
+            this.saveProgress();
+        }
+
+        const modal = document.getElementById('grammar-quiz-modal');
+        if (modal) {
+            modal.innerHTML = `
+                <div class="grammar-quiz-container">
+                    <div class="grammar-results">
+                        <h2>${passed ? '🎉 ¡Excelente!' : '📚 Sigue practicando'}</h2>
+                        <div class="grammar-score ${passed ? 'passed' : 'failed'}">
+                            <span class="score-big">${quiz.correct}/${quiz.total}</span>
+                            <span class="score-percent">${percentage}%</span>
+                        </div>
+                        <p>${passed ? '¡Has dominado este punto gramatical!' : 'Necesitas 75% para aprobar. Revisa los ejemplos e inténtalo de nuevo.'}</p>
+                        ${passed ? '<p class="xp-bonus">+25 XP</p>' : ''}
+                        <div class="grammar-results-btns">
+                            <button onclick="app.startGrammarPractice('${quiz.grammarId}')">🔄 Repetir</button>
+                            <button onclick="app.closeGrammarQuiz()">✓ Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        this.currentGrammarQuiz = null;
+    }
+
+    closeGrammarQuiz() {
+        const modal = document.getElementById('grammar-quiz-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
+        this.currentGrammarQuiz = null;
     }
 
     // ===== Exam System - Formato Oficial HSK1 =====
@@ -2703,6 +3159,23 @@ class HSK1App {
                     audioBtn.classList.remove('playing');
                 }
             };
+
+            speechSynthesis.speak(utterance);
+        }
+    }
+
+    // Speak any Chinese text with optional callback
+    speakText(text, callback) {
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+
+            if (callback) {
+                utterance.onend = callback;
+            }
 
             speechSynthesis.speak(utterance);
         }
